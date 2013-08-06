@@ -1,9 +1,0 @@
-c:\users\alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\ModeManager\bin\Debug\ModeManager.exe
-c:\users\alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\ModeManager\bin\Debug\ModeManager.pdb
-c:\users\alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\Build\Debug\ModeManager\ModeManager.exe
-c:\users\alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\Build\Debug\ModeManager\ModeManager.pdb
-c:\users\alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\ModeManager\obj\x86\Debug\ModeManager.Properties.Resources.resources
-c:\users\alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\ModeManager\obj\x86\Debug\ModeManager.csproj.GenerateResource.Cache
-c:\users\alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\ModeManager\obj\x86\Debug\ModeManager.exe
-c:\users\alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\ModeManager\obj\x86\Debug\ModeManager.pdb
-C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\ModeManager\obj\x86\Debug\ModeManager.csprojResolveAssemblyReference.cache
