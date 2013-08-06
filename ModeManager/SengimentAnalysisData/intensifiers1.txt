@@ -1,0 +1,6 @@
+very 50
+super 100
+extra 25
+uber 100
+hyper 100
+~
