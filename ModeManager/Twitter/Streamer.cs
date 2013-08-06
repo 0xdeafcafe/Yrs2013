@@ -59,5 +59,17 @@ namespace ModeManager.Twitter
             _twitterService.AuthenticateWith(AccessToken, AccessTokenSecret);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="count"></param>
+        /// <param name="resultType"></param>
+        /// <returns></returns>
+        private IEnumerable<TwitterStatus> GetRecentTweetsFromQuery(string query, int count = 50, TwitterSearchResultType resultType = TwitterSearchResultType.Recent)
+        {
+            return _twitterService.Search(new SearchOptions {Resulttype = resultType, Count = count, Q = query}).Statuses;
+        }
+
     }
 }
