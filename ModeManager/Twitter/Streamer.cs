@@ -6,6 +6,11 @@ namespace ModeManager.Twitter
 {
     public class Streamer
     {
+        private const string ConsumerKey = "WUdHlHvMdivzsoQ3h1qA";
+        private const string ConsumerSecret = "7vtk2Ar7fzB36QOshlw2auZ4tjJdvksXafhLNdtO8g";
+        private const string AccessToken = "221180324-9H7HCiCkKFun9fBRtUIMzhScKQsKSOd6JCsyHi4T";
+        private const string AccessTokenSecret = "I97L9N5NV2Pir9IFPCtRJufTj4OzRxIpyXB8pHixVk";
+
         private String _cityA;
         private String _cityB;
 
