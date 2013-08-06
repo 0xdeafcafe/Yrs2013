@@ -68,9 +68,9 @@ namespace ModeManager.Twitter
         /// <param name="count"></param>
         /// <param name="resultType"></param>
         /// <returns></returns>
-        private IEnumerable<TwitterStatus> GetRecentTweetsFromQuery(string query, int count = 50, TwitterSearchResultType resultType = TwitterSearchResultType.Recent)
+        private IEnumerable<TwitterStatus> GetRecentTweetsFromQuery(String query, int count = 20, TwitterSearchResultType resultType = TwitterSearchResultType.Recent)
         {
-            return _twitterService.Search(new SearchOptions {Resulttype = resultType, Count = count, Q = query}).Statuses;
+            return _twitterService.Search(new SearchOptions { Resulttype = resultType, Count = count, Q = query }).Statuses;
         }
 
         /// <summary>
