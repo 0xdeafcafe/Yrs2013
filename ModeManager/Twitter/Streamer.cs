@@ -9,7 +9,7 @@ namespace ModeManager.Twitter
     // TODO: Documentation
 
     /// <summary>
-    ///
+    /// 
     /// </summary>
     public class Streamer
     {
@@ -26,12 +26,12 @@ namespace ModeManager.Twitter
         {
             get { return _cityA; }
         }
-
+        
         public String CityB
         {
             get { return _cityB; }
         }
-
+        
         /// <summary>
         /// Create new instance of the twitter streaming wrapper. 
         /// </summary>
@@ -96,7 +96,7 @@ namespace ModeManager.Twitter
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <returns></returns>
         public Tuple<decimal, decimal> CalculateShittyCity()
