@@ -71,5 +71,17 @@ namespace ModeManager.Twitter
             return _twitterService.Search(new SearchOptions {Resulttype = resultType, Count = count, Q = query}).Statuses;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        public void CalculateShittyCity()
+        {
+            // Get Tweets
+            var cityATweets = GetRecentTweetsFromQuery(CityA);
+            var cityBTweets = GetRecentTweetsFromQuery(CityB);
+
+            // TODO: Do some sentiment analysis
+
+        }
     }
 }
