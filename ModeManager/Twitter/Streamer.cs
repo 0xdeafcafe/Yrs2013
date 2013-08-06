@@ -35,6 +35,12 @@ namespace ModeManager.Twitter
             // Save Cities
             _cityA = cityA;
             _cityB = cityB;
+
+            // Initalize the Twitter Service
+            InitalizeTwitterService();
+
+            // Authorize the Twitter Service
+            AuthorizeTwitterService();
         }
 
         /// <summary>
