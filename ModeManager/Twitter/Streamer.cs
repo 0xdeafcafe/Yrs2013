@@ -36,5 +36,13 @@ namespace ModeManager.Twitter
             _cityA = cityA;
             _cityB = cityB;
         }
+
+        /// <summary>
+        ///
+        /// </summary>
+        private void InitalizeTwitterService()
+        {
+            _twitterService = new TwitterService(ConsumerKey, ConsumerSecret);
+        }
     }
 }
