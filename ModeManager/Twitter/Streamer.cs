@@ -13,6 +13,7 @@ namespace ModeManager.Twitter
 
         private String _cityA;
         private String _cityB;
+        private TwitterService _twitterService;
 
         public String CityA
         {
