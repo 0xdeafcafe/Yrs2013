@@ -44,7 +44,7 @@ namespace ModeManager.Twitter
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         private void InitalizeTwitterService()
         {
@@ -52,7 +52,7 @@ namespace ModeManager.Twitter
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         private void AuthorizeTwitterService()
         {
@@ -60,7 +60,7 @@ namespace ModeManager.Twitter
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="query"></param>
         /// <param name="count"></param>
@@ -72,7 +72,7 @@ namespace ModeManager.Twitter
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         public void CalculateShittyCity()
         {
