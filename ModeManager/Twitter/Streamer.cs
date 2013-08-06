@@ -6,6 +6,11 @@ using TweetSharp;
 
 namespace ModeManager.Twitter
 {
+    // TODO: Documentation
+
+    /// <summary>
+    ///
+    /// </summary>
     public class Streamer
     {
         private const string ConsumerKey = "WUdHlHvMdivzsoQ3h1qA";
