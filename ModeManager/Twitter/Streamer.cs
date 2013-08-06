@@ -44,5 +44,14 @@ namespace ModeManager.Twitter
         {
             _twitterService = new TwitterService(ConsumerKey, ConsumerSecret);
         }
+
+        /// <summary>
+        ///
+        /// </summary>
+        private void AuthorizeTwitterService()
+        {
+            _twitterService.AuthenticateWith(AccessToken, AccessTokenSecret);
+        }
+
     }
 }
