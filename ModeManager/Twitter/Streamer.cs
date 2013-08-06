@@ -76,14 +76,44 @@ namespace ModeManager.Twitter
         /// <summary>
         /// 
         /// </summary>
-        public void CalculateShittyCity()
+        /// <param name="statuses"></param>
+        /// <returns></returns>
+        private static string[] ConvertTwitterStatusesToStringArray(IEnumerable<TwitterStatus> statuses)
+        {
+            var final = new List<String>();
+
+            foreach (var words in from status in statuses where !status.Text.StartsWith("RT") select status.Text.Split(' '))
+            {
+                final.AddRange(words.ToList());
+            }
+
+            return final.ToArray();
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<decimal, decimal> CalculateShittyCity()
         {
             // Get Tweets
-            var cityATweets = GetRecentTweetsFromQuery(CityA);
-            var cityBTweets = GetRecentTweetsFromQuery(CityB);
+            var cityAWords = ConvertTwitterStatusesToStringArray(GetRecentTweetsFromQuery(CityA));
+            var cityBWords = ConvertTwitterStatusesToStringArray(GetRecentTweetsFromQuery(CityB));
 
-            // TODO: Do some sentiment analysis
+            // Load Sentiment Analyser Dictionaries
+            var inverters = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/inverters1.txt");
+            var intensifiers = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/intensifiers1.txt");
+            var wordList = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/wordList1.txt");
 
+            // Initalize the Analyser
+            var sentimentAnalyser = new SentimentAnalyser(wordList, inverters, intensifiers, false);
+
+            // Analyse tweets from city A & B
+            var cityAWordAnalysis = sentimentAnalyser.Analyse(cityAWords);
+            var cityBWordAnalysis = sentimentAnalyser.Analyse(cityBWords);
+
+            // Returns a Turple of data
+            return new Tuple<decimal, decimal>(cityAWordAnalysis, cityBWordAnalysis);
         }
     }
 }
