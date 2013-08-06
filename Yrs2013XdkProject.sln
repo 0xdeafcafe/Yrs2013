@@ -7,6 +7,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XenonDll", "XenonDll\XenonD
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XenonDllLauncher", "XenonDllLauncher\XenonDllLauncher.vcxproj", "{8C092BD7-8097-4E39-8CA0-5BDC61D266F3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{01246036-8FEE-4DC4-A855-20103DC716B5}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeAnalysis|Mixed Platforms = CodeAnalysis|Mixed Platforms
