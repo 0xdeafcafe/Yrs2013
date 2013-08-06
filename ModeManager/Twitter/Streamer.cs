@@ -32,6 +32,7 @@ namespace ModeManager.Twitter
         /// <param name="cityB">Name of City B</param>
         public Streamer(String cityA, String cityB)
         {
+            // Save Cities
             _cityA = cityA;
             _cityB = cityB;
         }
