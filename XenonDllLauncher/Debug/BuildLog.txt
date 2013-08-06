@@ -1,0 +1,31 @@
+﻿Build started 8/6/2013 2:38:03 PM.
+     1>Project "C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\XenonDllLauncher\XenonDllLauncher.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\XenonDllLauncher.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Xbox 360 SDK\bin\win32\CL.exe /c /Zi /nologo /W3 /WX- /Od /D _DEBUG /D _XBOX /GF- /Gm /MTd /GS- /Gy- /fp:fast /fp:except- /Zc:wchar_t /Zc:forScope /GR- /openmp- /Yu"StdAfx.h" /Fp"C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\\Build\Debug\XenonDllLauncher\XenonDllLauncher.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /TP XenonDllLauncher.cpp /callcap /FI"C:\Program Files (x86)\Microsoft Xbox 360 SDK\include\xbox\xbox_intellisense_platform.h"
+         XenonDllLauncher.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Xbox 360 SDK\bin\win32\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\XenonDllLauncher\Debug\XenonDllLauncher.exe" /INCREMENTAL /NOLOGO xapilibd.lib d3d9d.lib d3dx9d.lib xgraphicsd.lib xboxkrnl.lib xnetd.lib xaudiod2.lib xactd3.lib x3daudiod.lib xmcored.lib xbdm.lib vcompd.lib /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\\Build\Debug\XenonDllLauncher\XenonDllLauncher.pdb" /STACK:"262144","262144" /TLBID:1 /IMPLIB:"C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\\Build\Debug\XenonDllLauncher\XenonDllLauncher.lib" Debug\stdafx.obj
+         Debug\XenonDllLauncher.obj /XEX:NO
+       ImageXex:
+         C:\Program Files (x86)\Microsoft Xbox 360 SDK\bin\win32\imagexex.exe /out:"C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\XenonDllLauncher\Debug\XenonDllLauncher.xex" "C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\XenonDllLauncher\Debug\XenonDllLauncher.exe" 
+         Microsoft(R) Xbox 360 Image File Builder Version 2.0.20871.0
+         (c)2011 Microsoft Corporation. All rights reserved.
+         
+       DeployToHardDrive:
+         C:\Program Files (x86)\Microsoft Xbox 360 SDK\bin\win32\xbecopy.exe /nologo
+         "/xbox:192.168.1.68"
+         "C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\XenonDllLauncher\Debug\XenonDllLauncher.xex" "devkit:\Games\Halo Builds\Halo 4 Builds\Halo 4 Yrs2013 Hack\XenonDllLauncher.xex"
+         
+          Xbox 360 TitleCopy Tool (2.0.20871.0)
+         Copyright (c) 2000-2011  Microsoft Corporation.  All rights reserved.
+       FinalizeBuildStatus:
+         Deleting file "Debug\XenonDllLauncher.unsuccessfulbuild".
+         Touching "Debug\XenonDllLauncher.lastbuildstate".
+     1>Done Building Project "C:\Users\Alex\documents\visual studio 2010\Projects\Yrs2013XdkProject\XenonDllLauncher\XenonDllLauncher.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.65
