@@ -13,8 +13,8 @@ namespace ModeManager.Twitter
         private const string AccessToken = "221180324-9H7HCiCkKFun9fBRtUIMzhScKQsKSOd6JCsyHi4T";
         private const string AccessTokenSecret = "I97L9N5NV2Pir9IFPCtRJufTj4OzRxIpyXB8pHixVk";
 
-        private String _cityA;
-        private String _cityB;
+        private readonly String _cityA;
+        private readonly String _cityB;
         private TwitterService _twitterService;
 
         public String CityA
