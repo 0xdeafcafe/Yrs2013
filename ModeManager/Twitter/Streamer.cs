@@ -29,11 +29,17 @@ namespace ModeManager.Twitter
         private TwitterService _twitterService;
         private SentimentAnalyser _sentimentAnalyser;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public String CityA
         {
             get { return _cityA; }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
         public String CityB
         {
             get { return _cityB; }
