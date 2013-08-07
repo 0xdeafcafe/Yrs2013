@@ -54,6 +54,9 @@ namespace ModeManager.Twitter
 
             // Authorize the Twitter Service
             AuthorizeTwitterService();
+
+            // Initalize the sentiment analysier
+            InitalizeSentimentAnalysis();
         }
 
         /// <summary>
@@ -74,6 +77,20 @@ namespace ModeManager.Twitter
 
         /// <summary>
         /// 
+        /// </summary>
+        private void InitalizeSentimentAnalysis()
+        {
+            // Load Sentiment Analyser Dictionaries
+            _inverters = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/inverters1.txt");
+            _intensifiers = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/intensifiers1.txt");
+            _wordList = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/wordList1.txt");
+
+            // Initalize Sentiment Analysis
+            _sentimentAnalyser = new SentimentAnalyser(_wordList, _inverters, _intensifiers, false);
+        }
+
+        /// <summary>
+        ///
         /// </summary>
         /// <param name="query"></param>
         /// <param name="count"></param>
