@@ -1879,6 +1879,12 @@ VOID Sample::DrawHandlesAndUpdateHandlesGameState()
 HRESULT Sample::Render()
 {
 
+	   UINT uWidth, uHeight;
+    ATG::GetVideoSettings( &uWidth, &uHeight );
+	// Render the background image
+    D3DRECT BackgroundTextureRect = { 0, 0, uWidth, uHeight };
+    DrawImage( BackgroundTextureRect, 1.0f, 0xffffffff, m_pBackgroundTexture );
+
     // Show title, frame rate, and help
     m_Timer.MarkFrame();
 
@@ -1891,13 +1897,13 @@ HRESULT Sample::Render()
     m_Font.SetScaleFactors( 1.2f, 1.2f );
     m_Font.DrawText( 500.0f, 0.0f, 0xffffffff, L"XenonNui", ATGFONT_CENTER_X );
     m_Font.SetScaleFactors( 1.0f, 1.0f );
-    m_Font.DrawText( 500.0f, 25.0f, 0xffffff00, m_Timer.GetFrameRate(), ATGFONT_CENTER_X );
+    m_Font.DrawText( 1024.0f, 25.0f, 0xffffff00, m_Timer.GetFrameRate(), ATGFONT_RIGHT );
 
 	m_Font.SetScaleFactors( 1.0f, 1.0f );
     m_Font.DrawText( 0.0f, -1.25f, 0xffffffff, L"Richard, Alex, Lucy, Eve, Gideon and Simion", ATGFONT_LEFT);
 
 	m_Font.SetScaleFactors( 1.0f, 1.0f );
-    m_Font.DrawText( 0.0f, 1.25f, 0xffffffff, L"What's a version number?", ATGFONT_LEFT);
+    m_Font.DrawText( 0.0f, 1.25f, 0xffffffff, L"Build 0.39", ATGFONT_LEFT);
     
     // Render Smoothing and Tilt Correction options
 
