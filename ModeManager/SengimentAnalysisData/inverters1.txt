@@ -1,4 +1,11 @@
 not 100
 no 100
 anti 100
+least 100
+doesn't 100
+hasn't 100
+didn't 100
+don't 100
+against 100
+won't 100
 ~
