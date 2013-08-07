@@ -67,6 +67,8 @@ static const INT g_iSpaceBetweenRailAndMenu = 40;
 static const INT g_iSpaceBetweenMenuItems = 15;
 static const INT g_iNmPixelsToCenterOfFirstCircle = 20;    // for vertical rail
 
+char	GameXexPath[] = "game:\\default.xex";
+
 // The background color is what you can modify with handles.
 static const INT g_iTotalColors = 20;
 D3DCOLOR g_BackGroundColors[ g_iTotalColors ];
@@ -1016,8 +1018,9 @@ VOID Sample::DrawAndUpdateStateGame()
 
     m_Font.Begin();
         m_Font.SetScaleFactors( 2.0f, 2.0f );
-        m_Font.DrawText( 0.0f, 150.0f, 0xffffffff, L"Playing game..." );
+        m_Font.DrawText( 0.0f, 150.0f, 0xffffffff, L"Launching game..." );
     m_Font.End();
+	XLaunchNewImage((CHAR*)&GameXexPath, NULL);
 
     NUI_HANDLES_GRIP* pAttachedGrip;
     D3DRECT rect;
@@ -1875,8 +1878,6 @@ VOID Sample::DrawHandlesAndUpdateHandlesGameState()
 //--------------------------------------------------------------------------------------
 HRESULT Sample::Render()
 {
-    // Draw a gradient filled background with texture on top
-    ATG::RenderBackground( g_GlobalBackgroundColor1, g_GlobalBackgroundColor2 );
 
     // Show title, frame rate, and help
     m_Timer.MarkFrame();
@@ -1888,9 +1889,15 @@ HRESULT Sample::Render()
     // Render the HUD
     m_Font.Begin();
     m_Font.SetScaleFactors( 1.2f, 1.2f );
-    m_Font.DrawText( 500.0f, 0.0f, 0xffffffff, L"Menu Using Handles", ATGFONT_CENTER_X );
+    m_Font.DrawText( 500.0f, 0.0f, 0xffffffff, L"XenonNui", ATGFONT_CENTER_X );
     m_Font.SetScaleFactors( 1.0f, 1.0f );
     m_Font.DrawText( 500.0f, 25.0f, 0xffffff00, m_Timer.GetFrameRate(), ATGFONT_CENTER_X );
+
+	m_Font.SetScaleFactors( 1.0f, 1.0f );
+    m_Font.DrawText( 0.0f, -1.25f, 0xffffffff, L"Richard, Alex, Lucy, Eve, Gideon and Simion", ATGFONT_LEFT);
+
+	m_Font.SetScaleFactors( 1.0f, 1.0f );
+    m_Font.DrawText( 0.0f, 1.25f, 0xffffffff, L"What's a version number?", ATGFONT_LEFT);
     
     // Render Smoothing and Tilt Correction options
 
