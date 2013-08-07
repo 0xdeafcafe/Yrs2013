@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using kfouwels.lib.SentimentAnalysis;
 using TweetSharp;
+using System.IO;
 
 namespace ModeManager.Twitter
 {
@@ -18,9 +19,15 @@ namespace ModeManager.Twitter
         private const string AccessToken = "221180324-9H7HCiCkKFun9fBRtUIMzhScKQsKSOd6JCsyHi4T";
         private const string AccessTokenSecret = "I97L9N5NV2Pir9IFPCtRJufTj4OzRxIpyXB8pHixVk";
 
+        private Dictionary<string, sbyte> _wordList;
+        private Dictionary<string, sbyte> _intensifiers;
+        private Dictionary<string, sbyte> _inverters;
+
         private readonly String _cityA;
         private readonly String _cityB;
+
         private TwitterService _twitterService;
+        private SentimentAnalyser _sentimentAnalyser;
 
         public String CityA
         {
@@ -48,6 +55,9 @@ namespace ModeManager.Twitter
 
             // Authorize the Twitter Service
             AuthorizeTwitterService();
+
+            // Initalize the sentiment analysier
+            InitalizeSentimentAnalysis();
         }
 
         /// <summary>
@@ -69,13 +79,27 @@ namespace ModeManager.Twitter
         /// <summary>
         /// 
         /// </summary>
+        private void InitalizeSentimentAnalysis()
+        {
+            // Load Sentiment Analyser Dictionaries
+            _inverters = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/inverters1.txt");
+            _intensifiers = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/intensifiers1.txt");
+            _wordList = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/wordList1.txt");
+
+            // Initalize Sentiment Analysis
+            _sentimentAnalyser = new SentimentAnalyser(_wordList, _inverters, _intensifiers, false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="query"></param>
         /// <param name="count"></param>
         /// <param name="resultType"></param>
         /// <returns></returns>
-        private IEnumerable<TwitterStatus> GetRecentTweetsFromQuery(String query, int count = 20, TwitterSearchResultType resultType = TwitterSearchResultType.Recent)
+        public IEnumerable<TwitterStatus> GetRecentTweetsFromQuery(String query, int count = 20, TwitterSearchResultType resultType = TwitterSearchResultType.Recent, string language = "eu")
         {
-            return _twitterService.Search(new SearchOptions { Resulttype = resultType, Count = count, Q = query }).Statuses;
+            return _twitterService.Search(new SearchOptions { Resulttype = resultType, Count = count, Q = query, Lang = language }).Statuses;
         }
 
         /// <summary>
@@ -105,17 +129,9 @@ namespace ModeManager.Twitter
             var cityAWords = ConvertTwitterStatusesToStringArray(GetRecentTweetsFromQuery(CityA));
             var cityBWords = ConvertTwitterStatusesToStringArray(GetRecentTweetsFromQuery(CityB));
 
-            // Load Sentiment Analyser Dictionaries
-            var inverters = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/inverters1.txt");
-            var intensifiers = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/intensifiers1.txt");
-            var wordList = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/wordList1.txt");
-
-            // Initalize the Analyser
-            var sentimentAnalyser = new SentimentAnalyser(wordList, inverters, intensifiers, false);
-
             // Analyse tweets from city A & B
-            var cityAWordAnalysis = sentimentAnalyser.Analyse(cityAWords);
-            var cityBWordAnalysis = sentimentAnalyser.Analyse(cityBWords);
+            var cityAWordAnalysis = _sentimentAnalyser.Analyse(cityAWords);
+            var cityBWordAnalysis = _sentimentAnalyser.Analyse(cityBWords);
 
             // Returns a Turple of data
             return new Tuple<decimal, decimal>(cityAWordAnalysis, cityBWordAnalysis);

@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Windows.Forms;
 using ModeManager.Twitter;
+using System.Collections.Generic;
+using System.IO;
 
 namespace ModeManager
 {
@@ -11,7 +13,17 @@ namespace ModeManager
             InitializeComponent();
 
             // Test Code
-            var twitterStreamer = new Streamer("London", "Birmingham");
+            var twitterStreamer = new Streamer("London", "New York");
+
+            //var data = new List<string>();
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    var tweets = twitterStreamer.GetRecentTweetsFromQuery("royal wedding", 100);
+            //    foreach (var tweet in tweets)
+            //        data.Add(tweet.Text);
+            //}
+            //File.WriteAllLines("data.txt", data.ToArray());
+
             var timer = new Timer { Interval = 5000 };
             timer.Tick += (sender, args) =>
             {
