@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<scriptEngine game="Halo4">
+  <!-- Nitrogen scripting database for Halo 4
+       Don't modify this unless you know what you're doing! -->
+  
+  <!-- External action and condition definitions -->
+  <actionDatabase path="h4_actions_nontu.xml" />
+  <conditionDatabase path="h4_conditions_nontu.xml" />
+  
+  <!-- External enum definitions -->
+  <enumDatabase path="h4_incidents.xml" />
+  <enumDatabase path="h4_medals.xml" />
+  <enumDatabase path="h4_object_types.xml" />
+  <enumDatabase path="h4_sounds.xml" />
+  <enumDatabase path="h4_stringids.xml" />
+  
+  <!-- Inline enum definitions -->
+  <enums>
+    <enum name="TriggerEnumType">
+      <value opcode="0" name="None" />
+      <value opcode="1" name="EnumPlayers" />
+      <value opcode="2" name="EnumPlayersRandomized" />
+      <value opcode="3" name="EnumTeams" />
+      <value opcode="4" name="EnumObjects" />
+      <value opcode="5" name="EnumObjectsWithLabel" />
+      <value opcode="6" name="EnumGameObjectsWithFilter" />
+    </enum>
+    <enum name="TriggerType">
+      <value opcode="0" name="OnTick" />
+      <value opcode="1" name="OnCall" />
+      <value opcode="2" name="OnInit" />
+      <value opcode="3" name="OnLocalInit" />
+      <value opcode="4" name="OnHostMigration" />
+      <value opcode="5" name="OnObjectDeath" />
+      <value opcode="6" name="Local" />
+      <value opcode="7" name="OnPregame" />
+      <value opcode="8" name="OnIncident" />
+    </enum>
+    <enum name="NetworkPriority">
+      <value opcode="0" name="None" />
+      <value opcode="1" name="Low" />
+      <value opcode="2" name="High" />
+      <value opcode="3" name="Default" />
+    </enum>
+    <enum name="ComparisonType">
+      <value opcode="0" name="LessThan" />
+      <value opcode="1" name="GreaterThan" />
+      <value opcode="2" name="Equal" />
+      <value opcode="3" name="LessThanEqual" />
+      <value opcode="4" name="GreaterThanEqual" />
+      <value opcode="5" name="NotEqual" />
+    </enum>
+    <enum name="TeamComparison">
+      <value opcode="0" name="Neutral" /> <!-- Checks if at least one team is neutral -->
+      <value opcode="1" name="Equal" />
+      <value opcode="2" name="NotEqual" />
+    </enum>
+    <enum name="OperationType">
+      <value opcode="0" name="Add" />
+      <value opcode="1" name="Subtract" />
+      <value opcode="2" name="Multiply" />
+      <value opcode="3" name="Divide" />
+      <value opcode="4" name="Set" />
+      <value opcode="5" name="Modulus" />
+      <value opcode="6" name="And" />
+      <value opcode="7" name="Or" />
+      <value opcode="8" name="Xor" />
+      <value opcode="9" name="Not" />
+      <value opcode="10" name="Shl" />
+      <value opcode="11" name="Shr" />
+      <value opcode="12" name="Shl2" />
+    </enum>
+    <enum name="DeathDamageModifier">
+      <value opcode="0" name="None" />
+      <value opcode="1" name="Pummel" />
+      <value opcode="2" name="Assassination" />
+      <value opcode="3" name="Splatter" />
+      <value opcode="4" name="Sticky" />
+      <value opcode="5" name="Headshot" />
+      <value opcode="6" name="Execution" />
+    </enum>
+    <enum name="GiveWeaponMode">
+      <value opcode="0" name="Unknown0" /> <!-- only works with flagnum? -->
+      <value opcode="1" name="Unknown1" /> <!-- works on the ball, at least -->
+      <value opcode="2" name="Give" /> <!-- used with normal weapons, makes the weapon occupy the first free slot -->
+    </enum>
+    <enum name="DropWeaponMode">
+      <value opcode="0" name="Readied" />
+      <value opcode="1" name="Holstered" />
+      <value opcode="2" name="InteractionWeapon" /> <!-- used to drop the extractor -->
+    </enum>
+    <enum name="PlayerAction">
+      <value opcode="0" name="Jump" />
+      <value opcode="1" name="SwitchWeapons" />
+      <value opcode="2" name="Interact" />
+      <value opcode="3" name="Melee" />
+      <value opcode="4" name="ArmorAbility" />
+      <value opcode="5" name="Grenade" />
+      <value opcode="6" name="Fire" />
+      <value opcode="7" name="Crouch" />
+      <value opcode="8" name="Zoom" />
+      <value opcode="9" name="SwitchGrenadesLeft" />
+      <value opcode="10" name="SwitchGrenadesRight" />
+      <value opcode="11" name="FireTertiary" />
+      <value opcode="12" name="Unused12" /> <!-- B by default -->
+      <value opcode="13" name="VehicleTrickPrimary" /> <!-- RB by default-->
+      <value opcode="14" name="VehicleTrickSecondary" /> <!-- LB by default -->
+      <value opcode="15" name="DualWield" /> <!-- B by default -->
+    </enum>
+  </enums>
+  
+  <!-- Reference type definitions -->
+  <references>
+    <reference type="Player">
+      <type opcode="0" function="GlobalPlayer">
+        <type opcode="0" function="Null" />
+        <typeRange start="1" end="16" function="Direct" />
+        <typeRange start="17" end="26" function="Global" />
+        <typeRange start="27" end="34" function="Scratch" />
+        <type opcode="35" function="CurrentPlayer" />
+        <type opcode="36" function="WidgetOwnerPlayer" />
+        <type opcode="37" function="WidgetTargetPlayer" />
+        <type opcode="38" function="KillerPlayer" />
+      </type>
+      <type opcode="1" function="PlayerMember" />
+      <type opcode="2" function="ObjectMember" />
+      <type opcode="3" function="TeamMember" />
+    </reference>
+    <reference type="Object">
+      <type opcode="0" function="GlobalObject">
+        <type opcode="0" function="Null" />
+        <typeRange start="1" end="18" function="Global" />
+        <typeRange start="19" end="26" function="Scratch" />
+        <type opcode="27" function="CurrentObject" />
+        <type opcode="28" function="WidgetTargetObject" />
+        <type opcode="29" function="DeadObject" />
+        <type opcode="30" function="KillerObject" />
+        <type opcode="31" function="CurrentGameObject" />
+      </type>
+      <type opcode="1" function="PlayerMember" />
+      <type opcode="2" function="ObjectMember" />
+      <type opcode="3" function="TeamMember" />
+      <type opcode="4" function="GlobalPlayerBiped" />
+      <type opcode="5" function="PlayerMemberPlayerBiped" />
+      <type opcode="6" function="ObjectMemberPlayerBiped" />
+      <type opcode="7" function="TeamMemberPlayerBiped" />
+    </reference>
+    <reference type="Team">
+      <type opcode="0" function="GlobalTeam">
+        <type opcode="0" function="Null" />
+        <typeRange start="1" end="9" function="Direct" />
+        <typeRange start="10" end="17" function="Global" />
+        <typeRange start="18" end="25" function="Scratch" />
+        <type opcode="26" function="CurrentTeam" />
+        <type opcode="27" function="WidgetOwnerTeam" />
+        <type opcode="28" function="WidgetTargetTeam" />
+        <type opcode="29" function="Unknown29" />
+        <type opcode="30" function="Unknown30" />
+      </type>
+      <type opcode="1" function="PlayerMember" />
+      <type opcode="2" function="ObjectMember" />
+      <type opcode="3" function="TeamMember" />
+      <type opcode="4" function="PlayerOwnerTeam" />
+      <type opcode="5" function="ObjectOwnerTeam" />
+    </reference>
+    <reference type="Timer">
+      <type opcode="0" function="GlobalTimer" />
+      <type opcode="1" function="PlayerMember" />
+      <type opcode="2" function="TeamMember" />
+      <type opcode="3" function="ObjectMember" />
+      <type opcode="4" function="RoundTimer" />
+      <type opcode="5" function="OvertimeTimer" />
+      <type opcode="6" function="GracePeriodTimer" />
+    </reference>
+    <reference type="Integer">
+      <type opcode="0" function="Constant" />
+      <type opcode="1" function="PlayerMember" />
+      <type opcode="2" function="ObjectMember" />
+      <type opcode="3" function="TeamMember" />
+      <type opcode="4" function="Global" />
+      <type opcode="5" function="Scratch" />
+      <type opcode="6" function="Option" />
+      <type opcode="7" function="SpawnSequence" />
+      <type opcode="8" function="UserData" />
+      <type opcode="9" function="Unknown9" />
+      <type opcode="10" function="TeamScore" />
+      <type opcode="11" function="PlayerScore" />
+      <type opcode="12" function="Unknown12" />
+      <type opcode="13" function="PlayerRating" />
+      <type opcode="14" function="PlayerStatistic" />
+      <type opcode="15" function="TeamStatistic" />
+      <type opcode="16" function="Unused16" />
+      <type opcode="17" function="CurrentRound" />
+      <type opcode="18" function="GetSymmetry" />
+      <type opcode="19" function="Symmetry" />
+      <type opcode="20" function="GameModeControlsVictory" />
+      <type opcode="21" function="ScoreToWinRound" />
+      <type opcode="22" function="TeamLivesRemaining" />
+      <type opcode="23" function="PlayerLivesRemaining" />
+      <type opcode="24" function="PlayerSpawnDelay" />
+      <type opcode="25" function="Unknown25" />
+      <type opcode="26" function="Unknown26" />
+      <type opcode="27" function="Unknown27" />
+      <type opcode="28" function="Unknown28" />
+      <type opcode="29" function="Unknown29" />
+      <type opcode="30" function="Unknown30" />
+      <type opcode="31" function="Unknown31" />
+      <type opcode="32" function="Unknown32" />
+      <type opcode="33" function="ScoreToWin" />
+      <type opcode="34" function="Unknown34" />
+      <type opcode="35" function="TeamsEnabled" />
+      <type opcode="36" function="RoundTimeLimit" />
+      <type opcode="37" function="RoundLimit" />
+      <type opcode="38" function="Unknown38" />
+      <type opcode="39" function="EarlyVictoryWinCount" />
+      <type opcode="40" function="LivesPerRound" />
+      <type opcode="41" function="TeamLivesPerRound" />
+      <type opcode="42" function="RespawnTime" />
+      <type opcode="43" function="SuicideTime" />
+      <type opcode="44" function="BetrayalTime" />
+      <type opcode="45" function="RespawnGrowthTime" />
+      <type opcode="46" function="InitialLoadoutSelectionTime" />
+      <type opcode="47" function="RespawnPlayerTraitsDuration" />
+      <type opcode="48" function="FriendlyFireEnabled" />
+      <type opcode="49" function="BetrayalBootingEnabled" />
+      <!-- 50-52: one of the social flags -->
+      <type opcode="50" function="Unknown50" />
+      <type opcode="51" function="Unknown51" />
+      <type opcode="52" function="Unknown52" />
+      <type opcode="53" function="IndestructibleVehicles" />
+      <type opcode="54" function="GrenadesOnMap" />
+      <type opcode="55" function="DamageBoostTraitsDuration" />
+      <type opcode="56" function="SpeedBoostTraitsDuration" />
+      <type opcode="57" function="OvershieldTraitsDuration" />
+      <type opcode="58" function="CustomTraitsDuration" />
+      <type opcode="59" function="DamageBoostTraitsRuntimeDuration" />
+      <type opcode="60" function="SpeedBoostTraitsRuntimeDuration" />
+      <type opcode="61" function="OvershieldTraitsRuntimeDuration" />
+      <type opcode="62" function="CustomTraitsRuntimeDuration" />
+      <type opcode="63" function="MapLoadoutsEnabled" />
+      <type opcode="64" function="InitialOrdnanceEnabled" />
+      <type opcode="65" function="RandomOrdnanceEnabled" />
+      <type opcode="66" function="PersonalOrdnanceEnabled" />
+      <type opcode="67" function="ObjectiveOrdnanceEnabled" />
+      <type opcode="68" function="OrdnanceEnabled" />
+      <type opcode="69" function="KillCamEnabled" />
+      <type opcode="70" function="FinalKillCamEnabled" />
+      <type opcode="71" function="SuddenDeathTimeLimit" />
+      <type opcode="72" function="Unknown72" />
+    </reference>
+    <reference type="Generic">
+      <type opcode="0" function="Integer" />
+      <type opcode="1" function="Player" />
+      <type opcode="2" function="Object" />
+      <type opcode="3" function="Team" />
+      <type opcode="4" function="Timer" />
+    </reference>
+    <reference type="Target">
+      <type opcode="0" function="Team" />
+      <type opcode="1" function="Player" />
+      <type opcode="2" function="All" />
+    </reference>
+    <reference type="StringToken">
+      <type opcode="-1" function="None" />
+      <type opcode="0" function="PlayerName" />
+      <type opcode="1" function="TeamDesignator" />
+      <type opcode="2" function="Object" />
+      <type opcode="3" function="Numeric" />
+      <type opcode="4" function="SignedNumeric" />
+      <type opcode="5" function="Timer" />
+    </reference>
+    <reference type="Shape">
+      <type opcode="0" function="None" />
+      <type opcode="1" function="Sphere" />
+      <type opcode="2" function="Cylinder" />
+      <type opcode="3" function="Box" />
+    </reference>
+    <reference type="NavpointIcon">
+      <type opcode="-1" function="None" />
+      <type opcode="0" function="Speaker" />
+      <type opcode="1" function="Cross" /> <!-- 'X' -->
+      <type opcode="2" function="Lightning" />
+      <type opcode="3" function="Target" />
+      <type opcode="4" function="Diamond" />
+      <type opcode="5" function="Bomb" />
+      <type opcode="6" function="Flag" />
+      <type opcode="7" function="Skull" />
+      <type opcode="8" function="Crown" />
+      <type opcode="9" function="Star" />
+      <type opcode="10" function="Lock" />
+      <typeRange start="11" end="19" function="Letter" /> <!-- Technically this is only 11... -->
+      <type opcode="20" function="Ordnance" />
+      <type opcode="21" function="Triangle" /> <!-- Triangle pointing down with a circle in it -->
+      <type opcode="22" function="Parachute" />
+      <type opcode="23" function="Ammo" />
+      <type opcode="24" function="Arrow" />
+      <type opcode="25" function="Defense" />
+      <type opcode="26" function="Collision" />
+      <type opcode="27" function="Dominion" />
+    </reference>
+    <reference type="EntityFilter">
+      <type opcode="0" function="None" />
+      <type opcode="1" function="Everyone" />
+      <type opcode="2" function="AllyTeams" />
+      <type opcode="3" function="EnemyTeams" />
+      <type opcode="4" function="PlayerMask" />
+      <type opcode="5" function="NoOne" />
+    </reference>
+    <reference type="MeterInfo">
+      <type opcode="0" function="None" />
+      <type opcode="1" function="Fraction" />
+      <type opcode="2" function="Timer" />
+    </reference>
+  </references>
+</scriptEngine>

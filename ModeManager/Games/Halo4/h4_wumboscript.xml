@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<wumboScript mode="wumbo">
+  <!-- Don't edit this unless you know for sure what you're doing. -->
+  <!-- You could be attacked by a Velociraptor. -->
+  <!-- srs. -->
+  <objectDefinitions>
+    <object name="game">
+      <globalReference name="unknown16" type="Integer" target="Unknown16" access="Get" />
+      <globalReference name="current_round" type="Integer" target="CurrentRound" access="Get" />
+      <globalReference name="symmetry" type="Integer" target="GetSymmetry" access="Get" />
+      <globalReference name="symmetry" type="Integer" target="Symmetry" access="Set" />
+      <globalReference name="mode_controls_victory" type="Integer" target="GameModeControlsVictory" access="GetSet" />
+      <globalReference name="score_to_win" type="Integer" target="ScoreToWinRound" access="Get" />
+      <globalReference name="score_to_win" type="Integer" target="ScoreToWin" access="Set" />
+      <globalReference name="unknown34" type="Integer" target="Unknown34" access="GetSet" />
+      <globalReference name="teams_enabled" type="Integer" target="TeamsEnabled" access="GetSet" />
+      <globalReference name="time_limit" type="Integer" target="RoundTimeLimit" access="GetSet" />
+      <globalReference name="round_limit" type="Integer" target="RoundLimit" access="GetSet" />
+      <globalReference name="unknown38" type="Integer" target="Unknown38" access="GetSet" />
+      <globalReference name="early_win_count" type="Integer" target="EarlyVictoryWinCount" access="GetSet" />
+      <globalReference name="lives_per_round" type="Integer" target="LivesPerRound" access="GetSet" />
+      <globalReference name="team_lives_per_round" type="Integer" target="TeamLivesPerRound" access="GetSet" />
+      <globalReference name="respawn_time" type="Integer" target="RespawnTime" access="GetSet" />
+      <globalReference name="suicide_time" type="Integer" target="SuicideTime" access="GetSet" />
+      <globalReference name="betrayal_time" type="Integer" target="BetrayalTime" access="GetSet" />
+      <globalReference name="respawn_growth_time" type="Integer" target="RespawnGrowthTime" access="GetSet" />
+      <globalReference name="initial_loadout_selection_time" type="Integer" target="InitialLoadoutSelectionTime" access="GetSet" />
+      <globalReference name="respawn_traits_duration" type="Integer" target="RespawnPlayerTraitsDuration" access="GetSet" />
+      <globalReference name="friendly_fire_enabled" type="Integer" target="FriendlyFireEnabled" access="GetSet" />
+      <globalReference name="betrayal_booting_enabled" type="Integer" target="BetrayalBootingEnabled" access="GetSet" />
+      <globalReference name="unknown50" type="Integer" target="Unknown50" access="GetSet" />
+      <globalReference name="unknown51" type="Integer" target="Unknown51" access="GetSet" />
+      <globalReference name="unknown52" type="Integer" target="Unknown52" access="GetSet" />
+      <globalReference name="indestructible_vehicles" type="Integer" target="IndestructibleVehicles" access="GetSet" />
+      <globalReference name="grenades_on_map" type="Integer" target="GrenadesOnMap" access="GetSet" />
+      <globalReference name="damage_boost_duration" type="Integer" target="DamageBoostTraitsDuration" access="Get" />
+      <globalReference name="speed_boost_duration" type="Integer" target="SpeedBoostTraitsDuration" access="Get" />
+      <globalReference name="overshield_duration" type="Integer" target="OvershieldTraitsDuration" access="Get" />
+      <globalReference name="custom_powerup_duration" type="Integer" target="CustomTraitsDuration" access="Get" />
+      <globalReference name="damage_boost_duration" type="Integer" target="DamageBoostTraitsRuntimeDuration" access="Set" />
+      <globalReference name="speed_boost_duration" type="Integer" target="SpeedBoostTraitsRuntimeDuration" access="Set" />
+      <globalReference name="overshield_duration" type="Integer" target="OvershieldTraitsRuntimeDuration" access="Set" />
+      <globalReference name="custom_powerup_duration" type="Integer" target="CustomTraitsRuntimeDuration" access="Set" />
+      <globalReference name="map_loadouts_enabled" type="Integer" target="MapLoadoutsEnabled" access="GetSet" />
+      <globalReference name="initial_ordnance_enabled" type="Integer" target="InitialOrdnanceEnabled" access="GetSet" />
+      <globalReference name="random_ordnance_enabled" type="Integer" target="RandomOrdnanceEnabled" access="GetSet" />
+      <globalReference name="personal_ordnance_enabled" type="Integer" target="PersonalOrdnanceEnabled" access="GetSet" />
+      <globalReference name="objective_ordnance_enabled" type="Integer" target="ObjectiveOrdnanceEnabled" access="GetSet" />
+      <globalReference name="ordnance_enabled" type="Integer" target="OrdnanceEnabled" access="GetSet" />
+      <globalReference name="kill_cam_enabled" type="Integer" target="KillCamEnabled" access="GetSet" />
+      <globalReference name="final_kill_cam_enabled" type="Integer" target="FinalKillCamEnabled" access="GetSet" />
+      <globalReference name="sudden_death_time_limit" type="Integer" target="SuddenDeathTimeLimit" access="GetSet" />
+      <globalReference name="unknown72" type="Integer" target="Unknown72" access="GetSet" />
+    </object>
+    <object name="players">
+      <globalReference name="player0" type="Player" target="Direct" index="0" access="Get" />
+      <globalReference name="player1" type="Player" target="Direct" index="1" access="Get" />
+      <globalReference name="player2" type="Player" target="Direct" index="2" access="Get" />
+      <globalReference name="player3" type="Player" target="Direct" index="3" access="Get" />
+      <globalReference name="player4" type="Player" target="Direct" index="4" access="Get" />
+      <globalReference name="player5" type="Player" target="Direct" index="5" access="Get" />
+      <globalReference name="player6" type="Player" target="Direct" index="6" access="Get" />
+      <globalReference name="player7" type="Player" target="Direct" index="7" access="Get" />
+      <globalReference name="player8" type="Player" target="Direct" index="8" access="Get" />
+      <globalReference name="player9" type="Player" target="Direct" index="9" access="Get" />
+      <globalReference name="player10" type="Player" target="Direct" index="10" access="Get" />
+      <globalReference name="player11" type="Player" target="Direct" index="11" access="Get" />
+      <globalReference name="player12" type="Player" target="Direct" index="12" access="Get" />
+      <globalReference name="player13" type="Player" target="Direct" index="13" access="Get" />
+      <globalReference name="player14" type="Player" target="Direct" index="14" access="Get" />
+      <globalReference name="player15" type="Player" target="Direct" index="15" access="Get" />
+      <globalReference name="widget_owner" type="Player" target="WidgetOwnerPlayer" access="Get" />
+      <globalReference name="widget_target" type="Player" target="WidgetTargetPlayer" access="Get" />
+      <globalReference name="object_destroyer" type="Player" target="KillerPlayer" access="Get" />
+    </object>
+    <object name="objects">
+      <globalReference name="widget_target" type="Object" target="WidgetTargetObject" access="Get" />
+      <globalReference name="destroyed_object" type="Object" target="DeadObject" access="Get" />
+      <globalReference name="object_destroyer" type="Object" target="KillerObject" access="Get" />
+    </object>
+    <object name="teams">
+      <globalReference name="team0" type="Team" target="Direct" index="0" access="Get" />
+      <globalReference name="team1" type="Team" target="Direct" index="1" access="Get" />
+      <globalReference name="team2" type="Team" target="Direct" index="2" access="Get" />
+      <globalReference name="team3" type="Team" target="Direct" index="3" access="Get" />
+      <globalReference name="team4" type="Team" target="Direct" index="4" access="Get" />
+      <globalReference name="team5" type="Team" target="Direct" index="5" access="Get" />
+      <globalReference name="team6" type="Team" target="Direct" index="6" access="Get" />
+      <globalReference name="team7" type="Team" target="Direct" index="7" access="Get" />
+      <globalReference name="neutral" type="Team" target="Direct" index="8" access="Get" />
+      <globalReference name="widget_owner" type="Team" target="WidgetOwnerTeam" access="Get" />
+      <globalReference name="widget_target" type="Team" target="WidgetTargetTeam" access="Get" />
+      <globalReference name="unknown29" type="Team" target="Unknown29" access="Get" />
+      <globalReference name="unknown30" type="Team" target="Unknown30" access="Get" />
+      
+      <!-- Friendly names -->
+      <alias name="red" target="team0" />
+      <alias name="blue" target="team1" />
+      <alias name="gold" target="team2" />
+      <alias name="green" target="team3" />
+      <alias name="purple" target="team4" />
+      <alias name="lime" target="team5" />
+      <alias name="orange" target="team6" />
+      <alias name="cyan" target="team7" />
+    </object>
+    <object name="timers">
+      <globalReference name="round_timer" type="Timer" target="RoundTimer" access="Get" />
+      <globalReference name="overtime_timer" type="Timer" target="OvertimeTimer" access="Get" />
+      <globalReference name="grace_timer" type="Timer" target="GracePeriodTimer" access="Get" />
+    </object>
+    <object name="navpoint_icons">
+      <globalReference name="speaker" type="NavpointIcon" target="Speaker" access="Get" />
+      <globalReference name="cross" type="NavpointIcon" target="Cross" access="Get" />
+      <globalReference name="lightning" type="NavpointIcon" target="Lightning" access="Get" />
+      <globalReference name="target" type="NavpointIcon" target="Target" access="Get" />
+      <globalReference name="diamond" type="NavpointIcon" target="Diamond" access="Get" />
+      <globalReference name="bomb" type="NavpointIcon" target="Bomb" access="Get" />
+      <globalReference name="flag" type="NavpointIcon" target="Flag" access="Get" />
+      <globalReference name="skull" type="NavpointIcon" target="Skull" access="Get" />
+      <globalReference name="crown" type="NavpointIcon" target="Crown" access="Get" />
+      <globalReference name="star" type="NavpointIcon" target="Star" access="Get" />
+      <globalReference name="lock" type="NavpointIcon" target="Lock" access="Get" />
+      <globalReference name="ordnance" type="NavpointIcon" target="Ordnance" access="Get" />
+      <globalReference name="triangle" type="NavpointIcon" target="Triangle" access="Get" />
+      <globalReference name="parachute" type="NavpointIcon" target="Parachute" access="Get" />
+      <globalReference name="ammo" type="NavpointIcon" target="Ammo" access="Get" />
+      <globalReference name="arrow" type="NavpointIcon" target="Arrow" access="Get" />
+      <globalReference name="defense" type="NavpointIcon" target="Defense" access="Get" />
+      <globalReference name="collision" type="NavpointIcon" target="Collision" access="Get" />
+      <globalReference name="dominion" type="NavpointIcon" target="Dominion" access="Get" />
+      <functionReference name="letter" type="NavpointIcon" target="Letter">
+        <param type="Integer" name="index" />
+      </functionReference>
+    </object>
+    <object name="entity_filter">
+      <globalReference name="allies" type="EntityFilter" target="AllyTeams" access="Get" />
+      <globalReference name="enemies" type="EntityFilter" target="EnemyTeams" access="Get" />
+      <functionReference name="player" type="EntityFilter" target="PlayerMask">
+        <param type="Player" name="player" />
+        <param type="Integer" name="enable" />
+      </functionReference>
+    </object>
+    <object name="shapes">
+      <functionReference name="sphere" type="Shape" target="Sphere">
+        <param type="Integer" name="radius" />
+      </functionReference>
+      <functionReference name="cylinder" type="Shape" target="Cylinder">
+        <param type="Integer" name="radius" />
+        <param type="Integer" name="top" />
+        <param type="Integer" name="bottom" />
+      </functionReference>
+      <functionReference name="box" type="Shape" target="Box">
+        <param type="Integer" name="width" />
+        <param type="Integer" name="length" />
+        <param type="Integer" name="top" />
+        <param type="Integer" name="bottom" />
+      </functionReference>
+    </object>
+    <object name="meters">
+      <functionReference name="fraction" type="MeterInfo" target="Fraction">
+        <param type="Integer" name="numerator" />
+        <param type="Integer" name="denominator" />
+      </functionReference>
+      <functionReference name="timer" type="MeterInfo" target="Timer">
+        <param type="Timer" name="timer" />
+      </functionReference>
+    </object>
+  </objectDefinitions>
+  <enumDefinitions>
+    <enum name="incidents" parentType="IncidentType">
+      <import from="IncidentType" />
+    </enum>
+    <enum name="stringids" parentType="MegaloStringID">
+      <import from="MegaloStringID" />
+    </enum>
+    <enum name="sounds" parentType="MegaloSound">
+      <import from="MegaloSound" />
+    </enum>
+    <enum name="object_types" parentType="MPObjectType">
+      <import from="MPObjectType" />
+    </enum>
+    <enum name="medals" parentType="GameMedal">
+      <import from="GameMedal" />
+    </enum>
+    <enum name="give_modes" parentType="GiveWeaponMode">
+      <value opcode="0" name="unknown0" />
+      <value opcode="1" name="unknown1" />
+      <value opcode="2" name="give" />
+    </enum>
+    <enum name="drop_modes" parentType="DropWeaponMode">
+      <value opcode="0" name="readied" />
+      <value opcode="1" name="holstered" />
+      <value opcode="2" name="interaction_weapon" />
+    </enum>
+  </enumDefinitions>
+  <propertyDefinitions>
+    <properties parentType="Player">
+      <statsReference name="stats" type="Integer" target="PlayerStatistic" />
+      <memberDataReference name="biped" ownerType="Player" type="Object" target="PlayerMemberPlayerBiped" access="Get" />
+      <memberDataReference name="biped" ownerType="Object" type="Object" target="ObjectMemberPlayerBiped" access="Get" />
+      <memberDataReference name="biped" ownerType="Team" type="Object" target="TeamMemberPlayerBiped" access="Get" />
+      <dataReference name="biped" type="Object" target="GlobalPlayerBiped" access="Get" />
+      <dataReference name="team" type="Team" target="PlayerOwnerTeam" access="GetSet" />
+      <dataReference name="score" type="Integer" target="PlayerScore" access="Get" />
+      <dataReference name="score" type="Integer" target="score_modify" access="Set" />
+      <dataReference name="rating" type="Integer" target="PlayerRating" access="GetSet" />
+      <dataReference name="lives" type="Integer" target="PlayerLivesRemaining" access="GetSet" />
+      <dataReference name="spawn_delay" type="Integer" target="PlayerSpawnDelay" access="GetSet" />
+      <dataReference name="frag_grenades" type="Integer" target="player_modify_grenades" access="Set" />
+      <dataReference name="plasma_grenades" type="Integer" target="player_modify_grenades" access="Set" />
+      <dataReference name="pulse_grenades" type="Integer" target="player_modify_grenades" access="Set" />
+      <dataReference name="unknown12" type="Integer" target="Unknown12" access="GetSet" />
+      <dataReference name="unknown25" type="Integer" target="Unknown25" access="GetSet" />
+      <dataReference name="unknown26" type="Integer" target="Unknown26" access="GetSet" />
+      <dataReference name="unknown27" type="Integer" target="Unknown27" access="GetSet" />
+    </properties>
+    <properties parentType="Object">
+      <dataReference name="team" type="Team" target="ObjectOwnerTeam" access="GetSet" />
+      <dataReference name="spawn_sequence" type="Integer" target="SpawnSequence" access="GetSet" />
+      <dataReference name="user_data" type="Integer" target="UserData" access="GetSet" />
+      <dataReference name="shields" type="Integer" target="object_get_shields" access="Get" />
+      <dataReference name="shields" type="Integer" target="object_modify_shields" access="Set" />
+      <dataReference name="health" type="Integer" target="object_get_health" access="Get" />
+      <dataReference name="health" type="Integer" target="object_modify_health" access="Set" />
+      <dataReference name="health_fraction" type="Integer" target="object_get_health_fraction" access="Get" />
+      <dataReference name="max_body_vitality" type="Integer" target="object_modify_max_body_vitality" access="Set" />
+      <dataReference name="max_shield_vitality" type="Integer" target="object_modify_max_shield_vitality" access="Set" />
+      <dataReference name="unknown9" type="Integer" target="Unknown9" access="GetSet" />
+      <dataReference name="unknown31" type="Integer" target="Unknown31" access="GetSet" />
+      <dataReference name="unknown32" type="Integer" target="Unknown32" access="GetSet" />
+    </properties>
+    <properties parentType="Team">
+      <statsReference name="stats" type="Integer" target="TeamStatistic" />
+      <dataReference name="score" type="Integer" target="TeamScore" access="Get" />
+      <dataReference name="score" type="Integer" target="score_modify" access="Set" />
+      <dataReference name="lives" type="Integer" target="TeamLivesRemaining" access="GetSet" />
+      <dataReference name="unknown28" type="Integer" target="Unknown28" access="GetSet" />
+      <dataReference name="unknown29" type="Integer" target="Unknown29" access="GetSet" />
+      <dataReference name="unknown30" type="Integer" target="Unknown30" access="GetSet" />
+    </properties>
+  </propertyDefinitions>
+  <operationRewrites>
+    <globalRewrite function="var_operation" left="result" right="value" operation="operation" type="Arithmetic" />
+    <globalRewrite function="compare" left="value1" right="value2" operation="comparison" type="Comparison" />
+    <propertyRewrite function="score_modify" property="score" left="target" right="value" operation="operation" type="Arithmetic" />
+    <propertyRewrite function="player_modify_grenades" property="frag_grenades" left="player" right="value" operation="operation" type="Arithmetic">
+      <constraint argument="grenade_type" value="0" />
+    </propertyRewrite>
+    <propertyRewrite function="player_modify_grenades" property="plasma_grenades" left="player" right="value" operation="operation" type="Arithmetic">
+      <constraint argument="grenade_type" value="1" />
+    </propertyRewrite>
+    <propertyRewrite function="player_modify_grenades" property="pulse_grenades" left="player" right="value" operation="operation" type="Arithmetic">
+      <constraint argument="grenade_type" value="2" />
+    </propertyRewrite>
+    <propertyRewrite function="object_get_shields" property="shields" left="result" right="object" type="Assignment" />
+    <propertyRewrite function="object_modify_shields" property="shields" left="object" right="value" operation="operation" type="Arithmetic" />
+    <propertyRewrite function="object_get_health" property="health" left="result" right="object" type="Assignment" />
+    <propertyRewrite function="object_modify_health" property="health" left="object" right="value" operation="operation" type="Arithmetic" />
+    <propertyRewrite function="object_get_health_fraction" property="health_fraction" left="result" right="object" type="Assignment" />
+    <propertyRewrite function="object_modify_max_shield_vitality" property="max_shield_vitality" left="object" right="value" operation="operation" type="Arithmetic" />
+    <propertyRewrite function="object_modify_max_body_vitality" property="max_body_vitality" left="object" right="value" operation="operation" type="Arithmetic" />
+  </operationRewrites>
+  <nameGuesses>
+    <guess name="spawned_object" function="object_spawn" />
+    <guess name="owner" function="object_get_owner_player" />
+    <guess name="velocity" function="object_get_velocity" />
+    <guess name="killer" function="player_get_killer" />
+    <guess name="damage_type" function="player_get_death_damage_type" />
+    <guess name="damage_modifier" function="player_get_death_damage_modifier" />
+    <guess name="place" function="player_get_place" />
+    <guess name="tied" function="teams_tied_for_first" />
+    <guess name="tied" function="players_tied_for_first" />
+    <guess name="place" function="team_get_place" />
+    <guess name="team_index" function="team_get_index" />
+    <guess name="kills" function="player_get_consecutive_kills" />
+    <guess name="vehicle" function="player_get_vehicle" />
+    <guess name="ultimate_parent" function="player_get_ultimate_parent" />
+    <guess name="shields" function="object_get_shields" />
+    <guess name="health" function="object_get_health" />
+    <guess name="health_fraction" function="object_get_health_fraction" />
+    <guess name="fireteam" function="player_get_fireteam" />
+    <guess name="distance" function="object_get_distance_between" />
+    <guess name="power" function="device_get_power" />
+    <guess name="position" function="device_get_position" />
+    <guess name="weapon" function="player_get_weapon" />
+    <guess name="armor_ability" function="player_get_armor_ability" />
+    <guess name="action_pressed" function="player_test_action" />
+    <guess name="user" function="device_get_player_user" />
+    <guess name="interacting_user" function="device_get_interacting_player_user" />
+    <guess name="channel" function="object_get_teleporter_channel" />
+    <guess name="digit" function="get_digit" />
+    <guess name="cause_player" function="incident_get_cause_player" />
+    <guess name="effect_player" function="incident_get_effect_player" />
+    <guess name="cause_team" function="incident_get_cause_team" />
+    <guess name="effect_team" function="incident_get_effect_team" />
+    <guess name="cause_object" function="incident_get_cause_object" />
+    <guess name="effect_object" function="incident_get_effect_object" />
+    <guess name="damage_modifier" function="incident_get_damage_reporting_modifier" />
+    <guess name="incident_value" function="incident_get_custom_value" />
+    <guess name="assassinated" function="player_is_getting_assassinated" />
+    <guess name="random_object" function="object_find_random" />
+  </nameGuesses>
+</wumboScript>

@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<definitions>
+  <definition name="compare" opcode="0x00">
+    <params>
+      <param type="reference" name="value1" />
+      <param type="reference" name="value2" />
+      <param type="uint" size="3" enumName="ComparisonType" name="comparison" />
+    </params>
+  </definition>
+  <definition name="object_is_in_boundary" opcode="0x01">
+    <params>
+      <param type="object_reference" name="object" />
+      <param type="object_reference" name="boundary" />
+    </params>
+  </definition>
+  <definition name="player_check_killer_type" opcode="0x02">
+    <params>
+      <param type="player_reference" name="player" />
+      <param type="uint" size="5" name="flags" />
+    </params>
+  </definition>
+  <definition name="player_recently_damaged" opcode="0x03">
+    <!-- Checks if player1 recently damaged player2 -->
+    <!-- This stays true at least until player2's shields are restored, it seems -->
+    <params>
+      <param type="player_reference" name="player1" />
+      <param type="player_reference" name="player2" />
+    </params>
+  </definition>
+  <definition name="teams_disposition" opcode="0x04">
+    <params>
+      <param type="team_reference" name="team1" />
+      <param type="team_reference" name="team2" />
+      <param type="uint" size="2" enumName="TeamComparison" name="disposition" /> <!-- 0 = neutral, 1 = equal, 2 = not equal -->
+    </params>
+  </definition>
+  <definition name="timer_is_zero" opcode="0x05">
+    <params>
+      <param type="timer_reference" name="timer" />
+    </params>
+  </definition>
+  <definition name="object_is_type" opcode="0x06">
+    <params>
+      <param type="object_reference" name="object" />
+      <param type="uint" size="11" enumName="MPObjectType" name="type" nullable="true" />
+    </params>
+  </definition>
+  <definition name="team_has_players" opcode="0x07">
+    <params>
+      <param type="team_reference" name="team" />
+    </params>
+  </definition>
+  <definition name="object_is_out_of_bounds" opcode="0x08">
+    <params>
+      <param type="object_reference" name="object" />
+    </params>
+  </definition>
+  <definition name="unused" opcode="0x09">
+    <params>
+      <param type="player_reference" name="player" />
+    </params>
+  </definition>
+  <definition name="player_assisted_kill_of" opcode="0x0A">
+    <!-- Doesn't include the player who actually got the kill -->
+    <params>
+      <param type="player_reference" name="player1" />
+      <param type="player_reference" name="player2" />
+    </params>
+  </definition>
+  <definition name="object_matches_filter" opcode="0x0B">
+    <params>
+      <param type="object_reference" name="object" />
+      <param type="object_filter" name="filter" />
+    </params>
+  </definition>
+  <definition name="player_is_not_respawning" opcode="0x0C">
+    <params>
+      <param type="player_reference" name="player" />
+    </params>
+  </definition>
+  <definition name="equipment_is_in_use" opcode="0x0D">
+    <params>
+      <param type="object_reference" name="equipment" />
+    </params>
+  </definition>
+  <definition name="player_is_spartan" opcode="0x0E">
+    <params>
+      <param type="player_reference" name="player" />
+    </params>
+  </definition>
+  <definition name="player_is_elite" opcode="0x0F">
+    <params>
+      <param type="player_reference" name="player" />
+    </params>
+  </definition>
+  <definition name="player_is_monitor" opcode="0x10">
+    <params>
+      <param type="player_reference" name="player" />
+    </params>
+  </definition>
+  <definition name="condition11" opcode="0x11">
+    <params />
+  </definition>
+  <definition name="condition12" opcode="0x12">
+    <!-- Has something to do with vehicle hijacking -->
+    <!-- Also, no mantis :343.jpg: -->
+    <params>
+      <param type="object_reference" name="vehicle" />
+    </params>
+  </definition>
+  <definition name="condition13" opcode="0x13">
+    <!-- Similar to condition12 -->
+    <params>
+      <param type="object_reference" name="vehicle" />
+    </params>
+  </definition>
+  <definition name="condition14" opcode="0x14">
+    <!-- Similar to condition12 -->
+    <params>
+      <param type="object_reference" name="vehicle" />
+    </params>
+  </definition>
+  <definition name="game_check_time" opcode="0x15">
+    <!-- Does the same thing as trigger frequency/offset -->
+    <!-- Kornman: maybe [this condition] is the egg, and the freq trigger data is the chicken -->
+    <params>
+      <param type="reference" name="frequency" /> <!-- Assumed to be an integer, don't use anything else here -->
+      <param type="reference" name="offset" /> <!-- Assumed to be an integer, don't use anything else here -->
+    </params>
+  </definition>
+  <definition name="incident" opcode="0x16">
+    <!-- Must be used in an incident entry point -->
+    <params>
+      <param type="uint" size="32" enumName="IncidentType" name="incident_index" />
+    </params>
+  </definition>
+  <definition name="condition17" opcode="0x17">
+    <!-- Returns bit 44 in a flags field -->
+    <params>
+      <param type="object_reference" name="object" />
+    </params>
+  </definition>
+  <definition name="weapon_is_held" opcode="0x18">
+    <params>
+      <param type="object_reference" name="weapon" />
+    </params>
+  </definition>
+</definitions>
