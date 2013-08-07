@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using kfouwels.lib.SentimentAnalysis;
 using TweetSharp;
+using System.IO;
 
 namespace ModeManager.Twitter
 {
@@ -90,15 +91,15 @@ namespace ModeManager.Twitter
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="query"></param>
         /// <param name="count"></param>
         /// <param name="resultType"></param>
         /// <returns></returns>
-        public IEnumerable<TwitterStatus> GetRecentTweetsFromQuery(String query, int count = 20, TwitterSearchResultType resultType = TwitterSearchResultType.Recent)
+        public IEnumerable<TwitterStatus> GetRecentTweetsFromQuery(String query, int count = 20, TwitterSearchResultType resultType = TwitterSearchResultType.Recent, string language = "eu")
         {
-            return _twitterService.Search(new SearchOptions { Resulttype = resultType, Count = count, Q = query }).Statuses;
+            return _twitterService.Search(new SearchOptions { Resulttype = resultType, Count = count, Q = query, Lang = language }).Statuses;
         }
 
         /// <summary>
@@ -128,17 +129,9 @@ namespace ModeManager.Twitter
             var cityAWords = ConvertTwitterStatusesToStringArray(GetRecentTweetsFromQuery(CityA));
             var cityBWords = ConvertTwitterStatusesToStringArray(GetRecentTweetsFromQuery(CityB));
 
-            // Load Sentiment Analyser Dictionaries
-            var inverters = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/inverters1.txt");
-            var intensifiers = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/intensifiers1.txt");
-            var wordList = Loaders.LoadDictionaryFromTxt(@"SengimentAnalysisData/wordList1.txt");
-
-            // Initalize the Analyser
-            var sentimentAnalyser = new SentimentAnalyser(wordList, inverters, intensifiers, false);
-
             // Analyse tweets from city A & B
-            var cityAWordAnalysis = sentimentAnalyser.Analyse(cityAWords);
-            var cityBWordAnalysis = sentimentAnalyser.Analyse(cityBWords);
+            var cityAWordAnalysis = _sentimentAnalyser.Analyse(cityAWords);
+            var cityBWordAnalysis = _sentimentAnalyser.Analyse(cityBWords);
 
             // Returns a Turple of data
             return new Tuple<decimal, decimal>(cityAWordAnalysis, cityBWordAnalysis);
