@@ -81,7 +81,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Xbox 360'">
     <LinkIncremental>true</LinkIncremental>
-    <RemoteRoot>devkit:\Games\Halo Builds\Halo 4 Builds\Halo 4 Yrs2013 Hack\</RemoteRoot>
+    <RemoteRoot>devkit:\Projects\Yrs2013</RemoteRoot>
     <OutDir>$(SolutionDir)\Build\$(ConfigurationName)\$(ProjectName)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='CodeAnalysis|Xbox 360'">

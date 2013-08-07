@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<ItemGroup>
+<Filter Include="Resources">
+<UniqueIdentifier>{2E00634B-153A-41dd-AEE5-5C755D13C053}</UniqueIdentifier>
+<Extensions>rdf</Extensions>
+</Filter>
+<Filter Include="FXLite Effects">
+<UniqueIdentifier>{66FFA51C-CC80-4755-AC3B-50320EED7A38}</UniqueIdentifier>
+<Extensions>fx</Extensions>
+</Filter>
+<Filter Include="Shaders">
+<UniqueIdentifier>{1008237E-1E09-477c-92C2-F7C0517BFE4C}</UniqueIdentifier>
+<Extensions>hlsl</Extensions>
+</Filter>
+<Filter Include="Scene Files">
+<UniqueIdentifier>{96ED41EC-44C0-4015-A89B-6399385FD891}</UniqueIdentifier>
+</Filter>
+</ItemGroup>
+<ItemGroup>
+      <ClCompile Include=".\Menu.cpp" />
+      <ClCompile Include=".\CameraManager.cpp" />
+      <CLInclude Include=".\CameraManager.h" />
+  </ItemGroup>
+<ItemGroup>
+<CustomBuild Include=".\Resource.rdf">
+<Filter>Resources</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\Fonts\Arial_16.rdf">
+<Filter>Resources</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\Help\Help.rdf">
+<Filter>Resources</Filter>
+</CustomBuild>
+</ItemGroup>
+<ItemGroup>
+<CustomBuild Include="Media\Effects\SimpleShaders.fx">
+<Filter>FXLite Effects</Filter>
+</CustomBuild>
+</ItemGroup>
+<ItemGroup>
+<CustomBuild Include="Media\sounds\04_Cursor_Prox_Closer_longer_loop.wav">
+<Filter>Scene Files</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\sounds\07_Cursor_Hotspot_Enter.wav">
+<Filter>Scene Files</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\sounds\09_Cursor_Inside_short_loop.wav">
+<Filter>Scene Files</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\sounds\10_Cursor_Hotspot_Exit.wav">
+<Filter>Scene Files</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\sounds\11_Btn_Interactive_Select.wav">
+<Filter>Scene Files</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\sounds\11_Cursor_Direction_Select.wav">
+<Filter>Scene Files</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\sounds\12_Btn_Select.wav">
+<Filter>Scene Files</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\sounds\19_Btn_Interactive_Focus.wav">
+<Filter>Scene Files</Filter>
+</CustomBuild>
+<CustomBuild Include="Media\sounds\ProximityBlip2.wav">
+<Filter>Scene Files</Filter>
+</CustomBuild>
+</ItemGroup>
+<ItemGroup>
+<CustomBuild Include="Media\Shaders\DepthPreview.hlsl">
+<Filter>Shaders</Filter>
+</CustomBuild>
+</ItemGroup>
+</Project>
