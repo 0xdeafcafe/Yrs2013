@@ -24,7 +24,9 @@ namespace ModeManager.Twitter
 
         private readonly String _cityA;
         private readonly String _cityB;
+
         private TwitterService _twitterService;
+        private SentimentAnalyser _sentimentAnalyser;
 
         public String CityA
         {
