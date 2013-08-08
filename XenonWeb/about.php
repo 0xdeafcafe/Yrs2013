@@ -57,7 +57,7 @@
 					<li><a href="http://twitter.com/RichardR">Richard</a></li>
 					<li><a href="http://twitter.com/Matchi_chan">Lucy</a></li>
 					<li><a href="http://twitter.com/SimionPutina">Simion</a></li>
-					<li><a href="http://twitter.com/Jewllama">Jewllama</a></li>
+					<li><a href="http://twitter.com/Jewllama">Gideon</a></li>
 					<li><a href="http://twitter.com/eve3208">Eve</a></li>
 				</ul>
 			</div>
