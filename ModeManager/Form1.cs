@@ -66,6 +66,8 @@ namespace ModeManager
                         CityBRating = response.Item2
                     });
                 }
+
+                i++;
             };
             timer.Start();
         }
