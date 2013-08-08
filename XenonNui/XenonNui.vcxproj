@@ -424,6 +424,7 @@
     <ClCompile Include=".\Menu.cpp" />
     <ClCompile Include=".\CameraManager.cpp" />
     <CLInclude Include=".\CameraManager.h" />
+    <ClInclude Include="Achievements.spa.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include=".\Resource.rdf">
@@ -515,6 +516,14 @@ fxc.exe "%(FullPath)" /nologo /Zi /Tps_3_0 /Eps_DepthPreview /DEntryPoint_ps_Dep
       <Project>{91d208a6-9936-47fd-9659-67205c3eb0ab}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="achievements.gameconfig">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Xbox 360'">spac -o "$(OutDir)spa.bin" -h "Achievements.spa.h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Xbox 360'">Build SPA file from %(FullPath)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Xbox 360'">$(OutDir)spa.bin</Outputs>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

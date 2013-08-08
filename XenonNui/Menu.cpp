@@ -23,6 +23,7 @@
 
 #include "CameraManager.h"
 #include "nuihandles.h"
+#include "achievements.spa.h"
 
 static CONST FLOAT g_fTransparent = 0.5f;
 
@@ -1482,8 +1483,8 @@ VOID Sample::DrawAndUpdateStateConfirm ()
     }
     m_Font.Begin();
         m_Font.SetScaleFactors( 2.0f, 2.0f );
-        m_Font.DrawText( 0.0f, 150.0f, 0xffffffff, L"To start a new game use the start button." );
-        m_Font.DrawText( 0.0f, 200.0f, 0xffffffff, L"To go back to the menu use the back button." );
+        m_Font.DrawText( 0.0f, 150.0f, 0xffffffff, L"Slide to launch Halo 4." );
+        m_Font.DrawText( 0.0f, 200.0f, 0xffffffff, L"Please make sure ModeManager is running on the debug PC." );
     m_Font.End();
 
     PIXEndNamedEvent();
