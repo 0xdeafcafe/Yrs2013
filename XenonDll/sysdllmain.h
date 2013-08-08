@@ -2,8 +2,8 @@
 #include <vector>
 #include <functional>
 
-#define GAME_TITLE_ID 0xFFFFFFFF
-const char* MODULE_NAME = "SystemModule";
+#define GAME_TITLE_ID 0x4D530919
+const char* MODULE_NAME = "ProjectXenon";
 const char* CONTENT_PARTITION_PATH = "\\Device\\Harddisk0\\Partition1";
 
 enum ControllerButtons
