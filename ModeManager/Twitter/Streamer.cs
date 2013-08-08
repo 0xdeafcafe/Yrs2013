@@ -129,7 +129,7 @@ namespace ModeManager.Twitter
         /// 
         /// </summary>
         /// <returns></returns>
-        public Tuple<decimal, decimal> CalculateShittyCity()
+        public Tuple<int, int> CalculateShittyCity()
         {
             // Get Tweets
             var cityAWords = ConvertTwitterStatusesToStringArray(GetRecentTweetsFromQuery(CityA));
@@ -140,7 +140,25 @@ namespace ModeManager.Twitter
             var cityBWordAnalysis = _sentimentAnalyser.Analyse(cityBWords);
 
             // Returns a Turple of data
-            return new Tuple<decimal, decimal>((int)cityAWordAnalysis, (int)cityBWordAnalysis);
+            return new Tuple<int, int>((int)cityAWordAnalysis, (int)cityBWordAnalysis);
         }
+    }
+
+    public class Session
+    {
+        public Session()
+        {
+            DataPoints = new List<DataPoint>();
+        }
+
+        public string CityA { get; set; }
+        public string CityB { get; set; }
+
+        public IList<DataPoint> DataPoints { get; set; }
+    }
+    public class DataPoint
+    {
+        public int CityARating { get; set; }
+        public int CityBRating { get; set; }
     }
 }
