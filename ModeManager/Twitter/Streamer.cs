@@ -140,7 +140,7 @@ namespace ModeManager.Twitter
             var cityBWordAnalysis = _sentimentAnalyser.Analyse(cityBWords);
 
             // Returns a Turple of data
-            return new Tuple<decimal, decimal>(cityAWordAnalysis, cityBWordAnalysis);
+            return new Tuple<decimal, decimal>((int)cityAWordAnalysis, (int)cityBWordAnalysis);
         }
     }
 }
