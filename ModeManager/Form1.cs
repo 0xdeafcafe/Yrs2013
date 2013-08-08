@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using ModeManager.Twitter;
-using System.Collections.Generic;
 using System.IO;
 using System;
 using VelocityNet.Stfs;
@@ -15,7 +13,7 @@ namespace ModeManager
 {
     public partial class Form1 : Form
     {
-        private readonly string InputStfsPackage;
+        private readonly string _inputStfsPackage;
 
         private string _cityA;
         private string _cityB;
@@ -24,10 +22,10 @@ namespace ModeManager
         public Form1()
         {
             InitializeComponent();
-            InputStfsPackage = "Stfs/gfaiutzayvy545555iuug2vmslaqbaaaaaaaaaaaa";
+            _inputStfsPackage = "Stfs/gfaiutzayvy545555iuug2vmslaqbaaaaaaaaaaaa";
         }
 
-        private void btnGetCityNames_Click(object sender, System.EventArgs e)
+        private void btnGetCityNames_Click(object sender, EventArgs e)
         {
             // TODO: Read this from memory
             txtCityA.Text = _cityA = "London";
@@ -36,7 +34,7 @@ namespace ModeManager
             MessageBox.Show("Loaded Cities");
         }
 
-        private void btnDoTwitterAnalysis_Click(object sender, System.EventArgs e)
+        private void btnDoTwitterAnalysis_Click(object sender, EventArgs e)
         {
             var timeInSeconds = Convert.ToInt32(txtGametypeLength.Text) * 60;
             var twitterStreamer = new Streamer(_cityA, _cityB);
@@ -72,12 +70,14 @@ namespace ModeManager
             timer.Start();
         }
 
-        private void btnCreateAndDeploy_Click(object sender, System.EventArgs e)
+        private void btnCreateAndDeploy_Click(object sender, EventArgs e)
         {
             // Get Base Shit
-            Stream templateStfs = new MemoryStream(File.ReadAllBytes(InputStfsPackage));
-            var stfs = new StfsPackage(templateStfs);
-            stfs.Name = string.Format("{0}/{1} - Yrs2013", _cityA, _cityB);
+            Stream templateStfs = new MemoryStream(File.ReadAllBytes(_inputStfsPackage));
+            var stfs = new StfsPackage(templateStfs)
+            {
+                Name = string.Format("{0}/{1} - Yrs2013", _cityA, _cityB)
+            };
             stfs.SaveMetadata();
 
             // Extract shit
@@ -113,8 +113,8 @@ namespace ModeManager
             // Create Megalo Script
             gametype.Script.GlobalVariables.Integers.Add(new IntegerVariableDefinition(0, NetworkPriority.High));
 
-            int traitIndex = gametype.MegaloTraits.Count;
-            gametype.MegaloTraits.Add(new MegaloTraits()
+            var traitIndex = gametype.MegaloTraits.Count;
+            gametype.MegaloTraits.Add(new MegaloTraits
             {
                 WaypointVisible = HUDVisibility.VisibleToEveryone,
                 DamageMultiplier = (Modifier)1.6,
