@@ -49,7 +49,17 @@
 				<p></p>
 				<h1>Technical</h1>
 				<p></p>
-				<p>For the 360 side we used C++ and an edited Kinect SDK sample, and for the web frontend we used HTML, CSS and PHP.</p>
+				<p>For the 360 side we used C++ and C# along with an edited Kinect SDK sample to launch into Halo 4, and for the web frontend we used HTML, CSS and PHP that communicates with a MySQL database that will pull data the same data that the game reads. This data is then parsed into JSON which the database will then read and post to the Cities page.</p>
+				<p></p>
+				<h1>Who built this?</h1>
+				<ul>
+					<li><a href="http://twitter.com/alexerax">Alex</a></li>
+					<li><a href="http://twitter.com/RichardR">Richard</a></li>
+					<li><a href="http://twitter.com/Matchi_chan">Lucy</a></li>
+					<li><a href="http://twitter.com/SimionPutina">Simion</a></li>
+					<li><a href="http://twitter.com/Jewllama">Jewllama</a></li>
+					<li><a href="http://twitter.com/eve3208">Eve</a></li>
+				</ul>
 			</div>
 		</div>
 
