@@ -53,6 +53,10 @@
 					</thead>
 					<tbody>
 						<?php
+							// require the api
+							// require 'api/submit.php';
+
+							// puts data into table based on how many rows it grabs (max 30)
 							$con = mysqli_connect("localhost", "arborvi1_gideon", "harris", "arborvi1_cw"); 
 							$query = "SELECT * FROM xenon ORDER BY citiesid DESC LIMIT 30";
 							$result = mysqli_query($con, $query);
