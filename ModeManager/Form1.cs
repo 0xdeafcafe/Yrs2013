@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using ModeManager.Twitter;
 using System.IO;
 using System;
@@ -123,24 +124,51 @@ namespace ModeManager
             });
 
             var initTrigger = new MegaloTrigger();
+            #region trigger_data
             {
                 // Set Team for initial sessiona
                 if (_session.DataPoints[0].CityARating > _session.DataPoints[0].CityBRating)
-                {
-                    
-                }
+                    Megalo.SetMegaloAction("var_operation", initTrigger, new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(traitIndex))),
+                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(0))),
+                        Megalo.CreateCondition("operation", OperationType.Set)
+                    });
                 else if (_session.DataPoints[0].CityARating < _session.DataPoints[0].CityBRating)
-                {
-
-                }
+                    Megalo.SetMegaloAction("var_operation", initTrigger, new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(traitIndex))),
+                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(1))),
+                        Megalo.CreateCondition("operation", OperationType.Set)
+                    });
                 else
-                {
-
-                }
+                    Megalo.SetMegaloAction("var_operation", initTrigger, new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(traitIndex))),
+                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(0))),
+                        Megalo.CreateCondition("operation", OperationType.Set)
+                    });
 
                 gametype.Script.EntryPoints.InitTrigger = initTrigger;
                 gametype.Script.Triggers.Add(initTrigger);
             }
+            #endregion
+
+            var setTraits = new MegaloTrigger { EnumType = TriggerEnumType.EnumPlayers };
+            #region trigger_data
+            {
+                Megalo.SetMegaloAction("compare", setTraits, new List<KeyValuePair<string, object>>
+                {
+                    Megalo.CreateCondition("value1", new GenericReference(TeamReference.ForPlayerOwnerTeam(PlayerVariableType.CurrentPlayer))),
+                    Megalo.CreateCondition("value2", new GenericReference(TeamReference.ForGlobal(TeamVariableType.Global))),
+                    Megalo.CreateCondition("comparison", ComparisonType.Equal)
+                });
+
+                // scaleAction.Arguments.Set("object", ObjectReference.ForTeamMember(TeamVariableType.CurrentTeam, 1));
+
+                gametype.Script.Triggers.Add(setTraits);
+            }
+            #endregion
 
             return gametype;
         }
