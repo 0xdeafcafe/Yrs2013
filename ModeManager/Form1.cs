@@ -85,8 +85,11 @@ namespace ModeManager
 
         private void btnCreateAndDeploy_Click(object sender, EventArgs e)
         {
+            var tempStfsFile = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\gfaiutzayvy545555iuug2vmslaqbaaaaaaaaaaaa";
+            File.Copy(_inputStfsPackage, tempStfsFile, true);
+
             // Get Base Shit
-            Stream templateStfs = new MemoryStream(File.ReadAllBytes(_inputStfsPackage));
+            Stream templateStfs = new FileStream(tempStfsFile, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             var stfs = new StfsPackage(templateStfs)
             {
                 Name = string.Format("{0}/{1} - Yrs2013", _cityA, _cityB)
@@ -113,9 +116,10 @@ namespace ModeManager
             // Fix Shit
             stfs.Rehash();
             stfs.SaveChanges(@"Stfs/KV_D.bin");
+            templateStfs.Close();
 
             // Transfer Stuff
-            XboxCommunication.XboxCopy(@"Stfs/temp", @"devkit:\Projects\");
+            XboxCommunication.XboxCopy(tempStfsFile, @"hdd:\Content\E00006B45A52FF20\4D530919\00000001");
 
             // Tell Shit
             MessageBox.Show("Gametype deployed to console");
@@ -257,28 +261,58 @@ namespace ModeManager
                     var constructedMegaloTrigger = new MegaloTrigger();
                     {
                         MegaloAction startAction;
-
+                        var winner = "";
                         if (dataPoint.CityARating > dataPoint.CityBRating)
-                            startAction = Megalo.SetMegaloAction("var_operation", constructedMegaloTrigger, new List<KeyValuePair<string, object>>
-                            {
-                                Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
-                                Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(0))),
-                                Megalo.CreateCondition("operation", OperationType.Set)
-                            });
+                        {
+                            winner = _session.CityA;
+
+                            startAction = Megalo.SetMegaloAction("var_operation", constructedMegaloTrigger,
+                                new List<KeyValuePair<string, object>>
+                                {
+                                    Megalo.CreateCondition("result",
+                                        new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
+                                    Megalo.CreateCondition("value",
+                                        new GenericReference(IntegerReference.ForConstant(0))),
+                                    Megalo.CreateCondition("operation", OperationType.Set)
+                                });
+                        }
                         else if (dataPoint.CityARating < dataPoint.CityBRating)
-                            startAction = Megalo.SetMegaloAction("var_operation", constructedMegaloTrigger, new List<KeyValuePair<string, object>>
-                            {
-                                Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
-                                Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(1))),
-                                Megalo.CreateCondition("operation", OperationType.Set)
-                            });
+                        {
+                            winner = _session.CityB;
+
+                            startAction = Megalo.SetMegaloAction("var_operation", constructedMegaloTrigger,
+                                new List<KeyValuePair<string, object>>
+                                {
+                                    Megalo.CreateCondition("result",
+                                        new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
+                                    Megalo.CreateCondition("value",
+                                        new GenericReference(IntegerReference.ForConstant(1))),
+                                    Megalo.CreateCondition("operation", OperationType.Set)
+                                });
+                        }
                         else
-                            startAction = Megalo.SetMegaloAction("var_operation", constructedMegaloTrigger, new List<KeyValuePair<string, object>>
-                            {
-                                Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
-                                Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(0))),
-                                Megalo.CreateCondition("operation", OperationType.Set)
-                            });
+                        {
+                            winner = _session.CityA;
+
+                            startAction = Megalo.SetMegaloAction("var_operation", constructedMegaloTrigger,
+                                new List<KeyValuePair<string, object>>
+                                {
+                                    Megalo.CreateCondition("result",
+                                        new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
+                                    Megalo.CreateCondition("value",
+                                        new GenericReference(IntegerReference.ForConstant(0))),
+                                    Megalo.CreateCondition("operation", OperationType.Set)
+                                });
+                        }
+
+
+
+                        var str = new StringReference(gametype.MegaloStrings.Add(string.Format("Current Winner Is: {0}!", winner)));
+                        var effectMessage = new MegaloAction("chud_message");
+                        effectMessage.Arguments.Set("target", TargetReference.All);
+                        effectMessage.Arguments.Set("sound_index", -1);
+                        effectMessage.Arguments.Set("text", str);
+                        constructedMegaloTrigger.Actions.Add(effectMessage);
 
                         // call if swag is gucci
                         Megalo.SetMegaloCondition("compare", constructedMegaloTrigger, startAction,
@@ -323,7 +357,7 @@ namespace ModeManager
                     new List<KeyValuePair<string, object>>
                     {
                         Megalo.CreateCondition("result", new GenericReference(TimerReference.ForGlobal(updateTimerIndex))),
-                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(5))),
+                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(3))),
                         Megalo.CreateCondition("operation", OperationType.Set)
                     });
 
@@ -350,6 +384,21 @@ namespace ModeManager
                     });
 
                 gametype.Script.Triggers.Add(dealWithTheTimerTrigger);
+            }
+            #endregion
+
+            var roundEndingTimer = new MegaloTrigger();
+            #region trigger_data
+            {
+                var endRound = Megalo.SetMegaloAction("round_end", roundEndingTimer);
+
+                Megalo.SetMegaloCondition("timer_is_zero", roundEndingTimer, endRound,
+                    new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("timer", TimerReference.RoundTimer)
+                    });
+
+                gametype.Script.Triggers.Add(roundEndingTimer);
             }
             #endregion
 
