@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using kfouwels.lib.SentimentAnalysis;
 using TweetSharp;
 using System.IO;
@@ -136,8 +137,13 @@ namespace ModeManager.Twitter
             var cityBWords = ConvertTwitterStatusesToStringArray(GetRecentTweetsFromQuery(CityB));
 
             // Analyse tweets from city A & B
-            var cityAWordAnalysis = _sentimentAnalyser.Analyse(cityAWords);
-            var cityBWordAnalysis = _sentimentAnalyser.Analyse(cityBWords);
+            decimal cityAWordAnalysis;
+            decimal cityBWordAnalysis;
+
+            try { cityAWordAnalysis = _sentimentAnalyser.Analyse(cityAWords); }
+            catch { cityAWordAnalysis = 0; }
+            try { cityBWordAnalysis = _sentimentAnalyser.Analyse(cityBWords); }
+            catch { cityBWordAnalysis = 0; }
 
             // Returns a Turple of data
             return new Tuple<int, int>((int)cityAWordAnalysis, (int)cityBWordAnalysis);

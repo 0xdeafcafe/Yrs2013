@@ -40,6 +40,7 @@
             this.btnDoTwitterAnalysis = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnCreateAndDeploy = new System.Windows.Forms.Button();
+            this.btnLoadJsonFromLocal = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -126,6 +127,7 @@
             this.txtGametypeLength.Name = "txtGametypeLength";
             this.txtGametypeLength.Size = new System.Drawing.Size(176, 20);
             this.txtGametypeLength.TabIndex = 6;
+            this.txtGametypeLength.Text = "1";
             // 
             // label3
             // 
@@ -148,23 +150,34 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnLoadJsonFromLocal);
             this.groupBox3.Controls.Add(this.btnCreateAndDeploy);
             this.groupBox3.Location = new System.Drawing.Point(423, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(188, 75);
+            this.groupBox3.Size = new System.Drawing.Size(188, 170);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Create && Deploy Gametype";
             // 
             // btnCreateAndDeploy
             // 
-            this.btnCreateAndDeploy.Location = new System.Drawing.Point(6, 19);
+            this.btnCreateAndDeploy.Location = new System.Drawing.Point(6, 78);
             this.btnCreateAndDeploy.Name = "btnCreateAndDeploy";
             this.btnCreateAndDeploy.Size = new System.Drawing.Size(176, 50);
             this.btnCreateAndDeploy.TabIndex = 1;
             this.btnCreateAndDeploy.Text = "Create && Deploy Gametype to Xbox";
             this.btnCreateAndDeploy.UseVisualStyleBackColor = true;
             this.btnCreateAndDeploy.Click += new System.EventHandler(this.btnCreateAndDeploy_Click);
+            // 
+            // btnLoadJsonFromLocal
+            // 
+            this.btnLoadJsonFromLocal.Location = new System.Drawing.Point(6, 19);
+            this.btnLoadJsonFromLocal.Name = "btnLoadJsonFromLocal";
+            this.btnLoadJsonFromLocal.Size = new System.Drawing.Size(176, 50);
+            this.btnLoadJsonFromLocal.TabIndex = 2;
+            this.btnLoadJsonFromLocal.Text = "Load Json Data from Local";
+            this.btnLoadJsonFromLocal.UseVisualStyleBackColor = true;
+            this.btnLoadJsonFromLocal.Click += new System.EventHandler(this.btnLoadJsonFromLocal_Click);
             // 
             // Form1
             // 
@@ -203,6 +216,7 @@
         private System.Windows.Forms.Button btnDoTwitterAnalysis;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnCreateAndDeploy;
+        private System.Windows.Forms.Button btnLoadJsonFromLocal;
     }
 }
 

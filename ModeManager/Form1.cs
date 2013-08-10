@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ModeManager.Twitter;
 using System.IO;
 using System;
+using Newtonsoft.Json;
 using VelocityNet.Stfs;
 using Nitrogen.Content.UserGenerated.Halo4;
 using Nitrogen.Content.UserGenerated.Halo4.Objects;
@@ -50,8 +51,10 @@ namespace ModeManager
             var timer = new Timer { Interval = 5000 };
             timer.Tick += (o, args) =>
             {
-                if (i < max)
+                if (i > max)
                 {
+                    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/city_data.json.new", JsonConvert.SerializeObject(_session));
+
                     // finishing up code
                     timer.Stop();
                     MessageBox.Show("Tweets Analysis Done");
@@ -69,6 +72,15 @@ namespace ModeManager
                 i++;
             };
             timer.Start();
+        }
+
+        private void btnLoadJsonFromLocal_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+
+            _session = JsonConvert.DeserializeObject<Session>(File.ReadAllText(ofd.FileName));
+            MessageBox.Show("Loaded Local JSON");
         }
 
         private void btnCreateAndDeploy_Click(object sender, EventArgs e)
@@ -91,6 +103,9 @@ namespace ModeManager
 
             // Save Shit
             gametype.Save(tempFile);
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\variant"))
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\variant");
+            File.Copy(tempFile, Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\variant");
 
             // Inject Shit
             stfs.ReplaceFile(tempFile, "variant");
@@ -108,12 +123,31 @@ namespace ModeManager
 
         private GameType CreateMegaloGametype(GameType gametype, uint time)
         {
-            gametype.TimeLimit = time;
+            // heuheuheuheuheu
+            gametype.TimeLimit = time - 1;
+
+            // string table her dongle so hard
             gametype.Name = new StringTable(string.Format("{0}/{1} - Yrs2013", _cityA, _cityB));
 
-            // Create Megalo Script
+            // setup teams
+            #region setup teams
+            gametype.TeamsEnabled = true;
+            gametype.TeamChanging = TeamChangingMode.Disabled;
+            #endregion
+            #region global variable declaration
+            var currentTeamIndex = gametype.Script.GlobalVariables.Integers.Count;
             gametype.Script.GlobalVariables.Integers.Add(new IntegerVariableDefinition(0, NetworkPriority.High));
 
+            var currentDataPointIndex = gametype.Script.GlobalVariables.Integers.Count;
+            gametype.Script.GlobalVariables.Integers.Add(new IntegerVariableDefinition(0, NetworkPriority.High));
+
+            var updateNextDataPoint = gametype.Script.GlobalVariables.Integers.Count;
+            gametype.Script.GlobalVariables.Integers.Add(new IntegerVariableDefinition(1, NetworkPriority.High));
+
+            var updateTimerIndex = gametype.Script.GlobalVariables.Timers.Count;
+            gametype.Script.GlobalVariables.Timers.Add(new TimerVariableDefinition(0));
+            #endregion
+            #region trait creation
             var traitIndex = gametype.MegaloTraits.Count;
             gametype.MegaloTraits.Add(new MegaloTraits
             {
@@ -122,31 +156,28 @@ namespace ModeManager
                 PlayerScale = (Modifier)2.0,
                 JumpHeight = (Modifier)2.0
             });
+            #endregion
+
+            // ************************************************************************************
+            // To All Megalo Script Under Here ****************************************************
+            // ************************************************************************************
 
             var initTrigger = new MegaloTrigger();
             #region trigger_data
             {
-                // Set Team for initial sessiona
-                if (_session.DataPoints[0].CityARating > _session.DataPoints[0].CityBRating)
-                    Megalo.SetMegaloAction("var_operation", initTrigger, new List<KeyValuePair<string, object>>
+                Megalo.SetMegaloAction("var_operation", initTrigger,
+                    new List<KeyValuePair<string, object>>
                     {
-                        Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(traitIndex))),
-                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(0))),
+                        Megalo.CreateCondition("result", new GenericReference(TimerReference.ForGlobal(updateTimerIndex))),
+                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(5))),
                         Megalo.CreateCondition("operation", OperationType.Set)
                     });
-                else if (_session.DataPoints[0].CityARating < _session.DataPoints[0].CityBRating)
-                    Megalo.SetMegaloAction("var_operation", initTrigger, new List<KeyValuePair<string, object>>
+
+                Megalo.SetMegaloAction("timer_set_rate", initTrigger,
+                    new List<KeyValuePair<string, object>>
                     {
-                        Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(traitIndex))),
-                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(1))),
-                        Megalo.CreateCondition("operation", OperationType.Set)
-                    });
-                else
-                    Megalo.SetMegaloAction("var_operation", initTrigger, new List<KeyValuePair<string, object>>
-                    {
-                        Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(traitIndex))),
-                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(0))),
-                        Megalo.CreateCondition("operation", OperationType.Set)
+                        Megalo.CreateCondition("timer", TimerReference.ForGlobal(updateTimerIndex)),
+                        Megalo.CreateCondition("rate", 5)
                     });
 
                 gametype.Script.EntryPoints.InitTrigger = initTrigger;
@@ -154,19 +185,171 @@ namespace ModeManager
             }
             #endregion
 
-            var setTraits = new MegaloTrigger { EnumType = TriggerEnumType.EnumPlayers };
+            var trySetTraitsToTeam0 = new MegaloTrigger { EnumType = TriggerEnumType.EnumPlayers };
             #region trigger_data
             {
-                Megalo.SetMegaloAction("compare", setTraits, new List<KeyValuePair<string, object>>
+                var setPlayerTraits = Megalo.SetMegaloAction("player_set_traits", trySetTraitsToTeam0, new List<KeyValuePair<string, object>>
                 {
-                    Megalo.CreateCondition("value1", new GenericReference(TeamReference.ForPlayerOwnerTeam(PlayerVariableType.CurrentPlayer))),
-                    Megalo.CreateCondition("value2", new GenericReference(TeamReference.ForGlobal(TeamVariableType.Global))),
+                    Megalo.CreateCondition("player", PlayerReference.ForGlobal(PlayerVariableType.CurrentPlayer)),
+                    Megalo.CreateCondition("traits_index", traitIndex)
+                });
+
+                Megalo.SetMegaloCondition("compare", trySetTraitsToTeam0, setPlayerTraits, new List<KeyValuePair<string, object>>
+                {
+                    Megalo.CreateCondition("value1", new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
+                    Megalo.CreateCondition("value2", new GenericReference(IntegerReference.ForConstant(0))),
                     Megalo.CreateCondition("comparison", ComparisonType.Equal)
                 });
 
-                // scaleAction.Arguments.Set("object", ObjectReference.ForTeamMember(TeamVariableType.CurrentTeam, 1));
+                Megalo.SetMegaloCondition("compare", trySetTraitsToTeam0, setPlayerTraits, new List<KeyValuePair<string, object>>
+                {
+                    Megalo.CreateCondition("value1", new GenericReference(TeamReference.ForPlayerOwnerTeam(PlayerVariableType.CurrentPlayer))),
+                    Megalo.CreateCondition("value2", new GenericReference(TeamReference.ForGlobal(TeamVariableType.Direct, 0))),
+                    Megalo.CreateCondition("comparison", ComparisonType.Equal)
+                }, 1);
 
-                gametype.Script.Triggers.Add(setTraits);
+                gametype.Script.Triggers.Add(trySetTraitsToTeam0);
+            }
+            #endregion
+
+            var trySetTraitsToTeam1 = new MegaloTrigger { EnumType = TriggerEnumType.EnumPlayers };
+            #region trigger_data
+            {
+                var setPlayerTraits = Megalo.SetMegaloAction("player_set_traits", trySetTraitsToTeam1, new List<KeyValuePair<string, object>>
+                {
+                    Megalo.CreateCondition("player", PlayerReference.ForGlobal(PlayerVariableType.CurrentPlayer)),
+                    Megalo.CreateCondition("traits_index", traitIndex)
+                });
+
+                Megalo.SetMegaloCondition("compare", trySetTraitsToTeam1, setPlayerTraits, new List<KeyValuePair<string, object>>
+                {
+                    Megalo.CreateCondition("value1", new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
+                    Megalo.CreateCondition("value2", new GenericReference(IntegerReference.ForConstant(1))),
+                    Megalo.CreateCondition("comparison", ComparisonType.Equal)
+                });
+
+                Megalo.SetMegaloCondition("compare", trySetTraitsToTeam1, setPlayerTraits, new List<KeyValuePair<string, object>>
+                {
+                    Megalo.CreateCondition("value1", new GenericReference(TeamReference.ForPlayerOwnerTeam(PlayerVariableType.CurrentPlayer))),
+                    Megalo.CreateCondition("value2", new GenericReference(TeamReference.ForGlobal(TeamVariableType.Direct, 1))),
+                    Megalo.CreateCondition("comparison", ComparisonType.Equal)
+                }, 1);
+
+                gametype.Script.Triggers.Add(trySetTraitsToTeam1);
+            }
+            #endregion
+
+            var updateDataPointEntryTrigger = new MegaloTrigger();
+            #region trigger_data
+            {
+                // start action
+                var resetNeedUpdateDataPoint = Megalo.SetMegaloAction("var_operation", updateDataPointEntryTrigger,
+                    new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(updateNextDataPoint))),
+                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(0))),
+                        Megalo.CreateCondition("operation", OperationType.Set)
+                    });
+
+                var index = 0;
+                foreach (var dataPoint in _session.DataPoints)
+                {
+                    var constructedMegaloTrigger = new MegaloTrigger();
+                    {
+                        MegaloAction startAction;
+
+                        if (dataPoint.CityARating > dataPoint.CityBRating)
+                            startAction = Megalo.SetMegaloAction("var_operation", constructedMegaloTrigger, new List<KeyValuePair<string, object>>
+                            {
+                                Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
+                                Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(0))),
+                                Megalo.CreateCondition("operation", OperationType.Set)
+                            });
+                        else if (dataPoint.CityARating < dataPoint.CityBRating)
+                            startAction = Megalo.SetMegaloAction("var_operation", constructedMegaloTrigger, new List<KeyValuePair<string, object>>
+                            {
+                                Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
+                                Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(1))),
+                                Megalo.CreateCondition("operation", OperationType.Set)
+                            });
+                        else
+                            startAction = Megalo.SetMegaloAction("var_operation", constructedMegaloTrigger, new List<KeyValuePair<string, object>>
+                            {
+                                Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(currentTeamIndex))),
+                                Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(0))),
+                                Megalo.CreateCondition("operation", OperationType.Set)
+                            });
+
+                        // call if swag is gucci
+                        Megalo.SetMegaloCondition("compare", constructedMegaloTrigger, startAction,
+                            new List<KeyValuePair<string, object>>
+                            {
+                                Megalo.CreateCondition("value1", new GenericReference(IntegerReference.ForGlobal(currentDataPointIndex))),
+                                Megalo.CreateCondition("value2", new GenericReference(IntegerReference.ForConstant((short)index))),
+                                Megalo.CreateCondition("comparison", ComparisonType.Equal)
+                            });
+                    }
+                    var callConstructedMegaloTrigger = MegaloAction.ForTriggerCall(constructedMegaloTrigger);
+                    updateDataPointEntryTrigger.Actions.Add(callConstructedMegaloTrigger);
+
+                    index++;
+                }
+
+                Megalo.SetMegaloAction("var_operation", updateDataPointEntryTrigger,
+                    new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(currentDataPointIndex))),
+                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(1))),
+                        Megalo.CreateCondition("operation", OperationType.Add)
+                    });
+
+                Megalo.SetMegaloCondition("compare", updateDataPointEntryTrigger, resetNeedUpdateDataPoint,
+                    new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("value1", new GenericReference(IntegerReference.ForGlobal(updateNextDataPoint))),
+                        Megalo.CreateCondition("value2", new GenericReference(IntegerReference.ForConstant(1))),
+                        Megalo.CreateCondition("comparison", ComparisonType.Equal)
+                    });
+
+                gametype.Script.Triggers.Add(updateDataPointEntryTrigger);
+            }
+            #endregion
+
+            var dealWithTheTimerTrigger = new MegaloTrigger();
+            #region trigger_data
+            {
+                // check timer has expired, if it has, set a variable and start it again
+                var setTimer = Megalo.SetMegaloAction("var_operation", dealWithTheTimerTrigger,
+                    new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("result", new GenericReference(TimerReference.ForGlobal(updateTimerIndex))),
+                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(5))),
+                        Megalo.CreateCondition("operation", OperationType.Set)
+                    });
+
+                Megalo.SetMegaloAction("timer_set_rate", dealWithTheTimerTrigger,
+                    new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("timer", TimerReference.ForGlobal(updateTimerIndex)),
+                        Megalo.CreateCondition("rate", 5)
+                    });
+
+                // set variable
+                Megalo.SetMegaloAction("var_operation", dealWithTheTimerTrigger,
+                    new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("result", new GenericReference(IntegerReference.ForGlobal(updateNextDataPoint))),
+                        Megalo.CreateCondition("value", new GenericReference(IntegerReference.ForConstant(1))),
+                        Megalo.CreateCondition("operation", OperationType.Set)
+                    });
+
+                Megalo.SetMegaloCondition("timer_is_zero", dealWithTheTimerTrigger, setTimer,
+                    new List<KeyValuePair<string, object>>
+                    {
+                        Megalo.CreateCondition("timer", TimerReference.ForGlobal(updateTimerIndex))
+                    });
+
+                gametype.Script.Triggers.Add(dealWithTheTimerTrigger);
             }
             #endregion
 
